@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shengyi.mapper.ReimbursementMapper">
+
+    <resultMap id="ReimbursementVOResultMap" type="com.shengyi.vo.ReimbursementListVO">
+        <id column="id" property="reimbursementId"/>
+        <result column="reimbursement_no" property="reimbursementNo"/>
+        <result column="status" property="status"/>
+        <result column="title" property="title"/>
+        <result column="reason" property="reason"/>
+        <result column="reimburser_id" property="reimburserId"/>
+        <result column="reimburser_name" property="reimburserName"/>
+        <result column="reimburser_no" property="reimburserNo"/>
+        <result column="department_id" property="departmentId"/>
+        <result column="department_name" property="departmentName"/>
+        <result column="department_no" property="departmentNo"/>
+        <result column="company_id" property="companyId"/>
+        <result column="company_name" property="companyName"/>
+        <result column="company_no" property="companyNo"/>
+        <result column="business_type_id" property="businessTypeId"/>
+        <result column="business_type_name" property="businessTypeName"/>
+        <result column="subsidy_amount" property="subsidyAmount"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <select id="POST_REIMBURSEMENT_LIST" resultMap="ReimbursementVOResultMap">
+        SELECT
+        r.id,
+        r.reimbursement_no,
+        r.status,
+        r.title,
+        r.reason,
+        r.reimburser_id,
+        r.reimburser_name,
+        r.reimburser_no,
+        r.department_id,
+        r.department_name,
+        r.department_no,
+        r.company_id,
+        r.company_name,
+        r.company_no,
+        r.business_type_id,
+        r.business_type_name,
+        r.subsidy_amount,
+        r.create_time
+        FROM reimbursement r
+        <where>
+            AND r.deleted = 0
+            <if test="query.reimbursementNo != null and query.reimbursementNo != ''">
+                AND r.reimbursement_no = #{query.reimbursementNo}
+            </if>
+            <if test="query.title != null and query.title != ''">
+                AND r.title LIKE CONCAT('%', #{query.title}, '%')
+            </if>
+            <if test="query.reason != null and query.reason != ''">
+                AND r.reason LIKE CONCAT('%', #{query.reason}, '%')
+            </if>
+            <if test="query.companyId != null and query.companyId != ''">
+                AND r.company_id = #{query.companyId}
+            </if>
+            <if test="query.departmentId != null and query.departmentId != ''">
+                AND r.department_id = #{query.departmentId}
+            </if>
+            <if test="query.reimburserId != null and query.reimburserId != ''">
+                AND r.reimburser_id = #{query.reimburserId}
+            </if>
+            <if test="query.businessTypeId != null and query.businessTypeId != ''">
+                AND r.business_type_id = #{query.businessTypeId}
+            </if>
+        </where>
+        ORDER BY r.create_time DESC
+    </select>
+
+    <!-- ==================== 报销单详情 ==================== -->
+    <resultMap id="ReimbursementDetailVOResultMap" type="com.shengyi.vo.ReimbursementDetailVO">
+        <id column="reimbursementId" property="reimbursementId"/>
+        <result column="reimbursementNo" property="reimbursementNo"/>
+        <result column="title" property="title"/>
+        <result column="reason" property="reason"/>
+        <result column="status" property="status"/>
+        <result column="version" property="version"/>
+        <result column="reimburserId" property="reimburserId"/>
+        <result column="reimburserName" property="reimburserName"/>
+        <result column="reimburserNo" property="reimburserNo"/>
+        <result column="departmentId" property="departmentId"/>
+        <result column="departmentName" property="departmentName"/>
+        <result column="departmentNo" property="departmentNo"/>
+        <result column="companyId" property="companyId"/>
+        <result column="companyName" property="companyName"/>
+        <result column="companyNo" property="companyNo"/>
+        <result column="businessTypeId" property="businessTypeId"/>
+        <result column="businessTypeName" property="businessTypeName"/>
+        <result column="subsidyAmount" property="subsidyAmount"/>
+        <result column="remarks" property="remarks"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+    </resultMap>
+
+    <select id="GET_REIMBURSEMENT_DETAIL" resultMap="ReimbursementDetailVOResultMap">
+        SELECT
+            CAST(r.id AS CHAR)          AS reimbursementId,
+            r.reimbursement_no          AS reimbursementNo,
+            r.title,
+            r.reason,
+            r.status,
+            r.version,
+            r.reimburser_id             AS reimburserId,
+            r.reimburser_name           AS reimburserName,
+            r.reimburser_no             AS reimburserNo,
+            r.department_id             AS departmentId,
+            r.department_name           AS departmentName,
+            r.department_no             AS departmentNo,
+            r.company_id                AS companyId,
+            r.company_name              AS companyName,
+            r.company_no                AS companyNo,
+            r.business_type_id          AS businessTypeId,
+            r.business_type_name        AS businessTypeName,
+            r.subsidy_amount            AS subsidyAmount,
+            r.remarks,
+            r.create_time               AS createTime,
+            r.update_time               AS updateTime
+        FROM reimbursement r
+        WHERE r.id = #{reimbursementId}
+    </select>
+
+    <!-- ==================== 补录行程列表 ==================== -->
+    <resultMap id="TripVOResultMap" type="com.shengyi.vo.TripVO">
+        <id column="tripId" property="tripId"/>
+        <result column="travelerId" property="travelerId"/>
+        <result column="travelerName" property="travelerName"/>
+        <result column="departureCity" property="departureCity"/>
+        <result column="arrivalCity" property="arrivalCity"/>
+        <result column="startDate" property="startDate"/>
+        <result column="endDate" property="endDate"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <select id="GET_TRIPS_BY_REIMBURSEMENT_ID" resultMap="TripVOResultMap">
+        SELECT
+            CAST(t.id AS CHAR)        AS tripId,
+            t.traveler_id             AS travelerId,
+            t.traveler_name           AS travelerName,
+            t.departure_city          AS departureCity,
+            t.arrival_city            AS arrivalCity,
+            t.start_date              AS startDate,
+            t.end_date                AS endDate,
+            t.description
+        FROM trip t
+        WHERE t.reimbursement_id = #{reimbursementId}
+    </select>
+
+    <!-- ==================== 补助信息汇总列表 ==================== -->
+    <resultMap id="SubsidySummaryVOResultMap" type="com.shengyi.vo.SubsidySummaryVO">
+        <result column="tripId" property="tripId"/>
+        <result column="travelerName" property="travelerName"/>
+        <result column="travelDateRange" property="travelDateRange"/>
+        <result column="subsidyDays" property="subsidyDays"/>
+        <result column="route" property="route"/>
+        <result column="subsidyCity" property="subsidyCity"/>
+        <result column="applyAmount" property="applyAmount"/>
+        <result column="subsidyAmount" property="subsidyAmount"/>
+    </resultMap>
+
+    <select id="GET_SUBSIDY_SUMMARY_BY_REIMBURSEMENT_ID" resultMap="SubsidySummaryVOResultMap">
+        SELECT
+            CAST(t.id AS CHAR)      AS tripId,
+            t.traveler_name         AS travelerName,
+            CONCAT(DATE_FORMAT(MIN(sc.calendar_date), '%Y-%m-%d'),
+                   ' ~ ',
+                   DATE_FORMAT(MAX(sc.calendar_date), '%Y-%m-%d'))
+                                    AS travelDateRange,
+            COUNT(DISTINCT sc.calendar_date)
+                                    AS subsidyDays,
+            CONCAT(t.departure_city, '→', t.arrival_city)
+                                    AS route,
+            t.arrival_city          AS subsidyCity,
+            SUM(CASE WHEN sc.meal_checked = 1 THEN COALESCE(sc.meal_standard, 0) ELSE 0 END
+              + CASE WHEN sc.traffic_checked = 1 THEN COALESCE(sc.traffic_standard, 0) ELSE 0 END
+              + CASE WHEN sc.comm_checked = 1 THEN COALESCE(sc.comm_standard, 0) ELSE 0 END)
+                                    AS applyAmount,
+            SUM(CASE WHEN sc.meal_checked = 1 THEN COALESCE(sc.meal_amount, 0) ELSE 0 END
+              + CASE WHEN sc.traffic_checked = 1 THEN COALESCE(sc.traffic_amount, 0) ELSE 0 END
+              + CASE WHEN sc.comm_checked = 1 THEN COALESCE(sc.comm_amount, 0) ELSE 0 END)
+                                    AS subsidyAmount,
+            SUM(CASE WHEN sc.meal_checked = 1 THEN COALESCE(sc.meal_amount, 0) ELSE 0 END)
+                                    AS mealSubsidyAmount,
+            SUM(CASE WHEN sc.traffic_checked = 1 THEN COALESCE(sc.traffic_amount, 0) ELSE 0 END)
+                                    AS trafficSubsidyAmount,
+            SUM(CASE WHEN sc.comm_checked = 1 THEN COALESCE(sc.comm_amount, 0) ELSE 0 END)
+                                    AS commSubsidyAmount
+        FROM subsidy_calendar sc
+        INNER JOIN trip t ON t.id = sc.trip_id
+        WHERE sc.reimbursement_id = #{reimbursementId}
+        GROUP BY t.id, t.traveler_name, t.departure_city, t.arrival_city
+    </select>
+
+    <!-- ==================== 更新草稿（乐观锁） ==================== -->
+    <update id="UPDATE_DRAFT_WITH_VERSION">
+        UPDATE reimbursement SET
+            title = #{title},
+            reason = #{reason},
+            company_id = #{companyId},
+            company_name = #{companyName},
+            company_no = #{companyNo},
+            department_id = #{departmentId},
+            department_name = #{departmentName},
+            department_no = #{departmentNo},
+            reimburser_id = #{reimburserId},
+            reimburser_name = #{reimburserName},
+            reimburser_no = #{reimburserNo},
+            business_type_id = #{businessTypeId},
+            business_type_name = #{businessTypeName},
+            remarks = #{remarks},
+            version = version + 1,
+            update_time = NOW()
+        WHERE id = #{id} AND version = #{version} AND status = 0
+    </update>
+
+    <!-- ==================== 校验行程日期重叠 ==================== -->
+    <select id="COUNT_TRIP_DATE_OVERLAP" resultType="int">
+        SELECT COUNT(*)
+        FROM trip a
+        INNER JOIN trip b ON a.reimbursement_id = b.reimbursement_id AND a.id &lt; b.id
+            AND a.start_date &lt;= b.end_date AND b.start_date &lt;= a.end_date
+        WHERE a.reimbursement_id = #{reimbursementId}
+    </select>
+
+    <!-- ==================== 校验行程和补助非空 ==================== -->
+    <select id="COUNT_TRIPS_BY_REIMBURSEMENT_ID" resultType="long">
+        SELECT COUNT(*) FROM trip WHERE reimbursement_id = #{reimbursementId}
+    </select>
+
+    <select id="COUNT_SUBSIDY_BY_REIMBURSEMENT_ID" resultType="long">
+        SELECT COUNT(*) FROM subsidy_calendar WHERE reimbursement_id = #{reimbursementId}
+    </select>
+
+</mapper>

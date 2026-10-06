@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shengyi.mapper.TripMapper">
+
+    <!-- 校验同报销单 + 同出行人下是否存在日期重叠 -->
+    <select id="COUNT_DATE_OVERLAP" resultType="int">
+        SELECT COUNT(*)
+        FROM trip
+        WHERE reimbursement_id = #{reimbursementId}
+          AND traveler_id = #{travelerId}
+          AND start_date &lt;= #{endDate}
+          AND end_date &gt;= #{startDate}
+    </select>
+
+    <!-- 校验更新时同报销单 + 同出行人下是否存在日期重叠（排除当前行程） -->
+    <select id="COUNT_DATE_OVERLAP_EXCLUDE_SELF" resultType="int">
+        SELECT COUNT(*)
+        FROM trip
+        WHERE reimbursement_id = #{reimbursementId}
+          AND traveler_id = #{travelerId}
+          AND id != #{tripId}
+          AND start_date &lt;= #{endDate}
+          AND end_date &gt;= #{startDate}
+    </select>
+
+</mapper>
