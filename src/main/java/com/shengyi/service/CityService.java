@@ -7,5 +7,5 @@ import com.shengyi.vo.CityVO;
 import java.util.List;
 
 public interface CityService extends IService<CityTypeConfig> {
-    List<CityVO> GET_CITY_LIST();
+    List<CityVO> getCityList();
 }

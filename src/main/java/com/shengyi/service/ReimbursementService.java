@@ -9,17 +9,17 @@ import com.shengyi.vo.ReimbursementDetailVO;
 import com.shengyi.vo.ReimbursementListVO;
 
 public interface ReimbursementService extends IService<Reimbursement> {
-    PageResult<ReimbursementListVO> POST_REIMBURSEMENT_LIST(ReimbursementListDTO query);
+    PageResult<ReimbursementListVO> getReimbursementList(ReimbursementListDTO query);
 
-    ReimbursementDetailVO GET_REIMBURSEMENT_DETAIL(String reimbursementId);
+    ReimbursementDetailVO getReimbursementDetail(String reimbursementId);
 
-    Long POST_REIMBURSEMENT_SAVE_DRAFT(ReimbursementSaveDTO dto);
+    Long saveDraft(ReimbursementSaveDTO dto);
 
-    void POST_REIMBURSEMENT_SUBMIT(ReimbursementSaveDTO dto);
+    void submitReimbursement(ReimbursementSaveDTO dto);
 
-    void POST_REIMBURSEMENT_WITHDRAW(String reimbursementId);
+    void withdrawReimbursement(String reimbursementId);
 
-    void POST_REIMBURSEMENT_INVALIDATE(String reimbursementId);
+    void invalidateReimbursement(String reimbursementId);
 
-    void DELETE_REIMBURSEMENT(String reimbursementId);
+    void deleteReimbursement(String reimbursementId);
 }

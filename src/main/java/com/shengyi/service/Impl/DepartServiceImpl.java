@@ -17,7 +17,7 @@ public class DepartServiceImpl extends ServiceImpl<DepartMapper, Depart> impleme
 
     @Override
     @Cacheable(value = "depart")
-    public List<DepartVO> GET_DEPARTMENT_LIST() {
+    public List<DepartVO> getDepartmentList() {
         List<Depart> list = this.list();
         return list.stream().map(depart -> {
             DepartVO vo = new DepartVO();

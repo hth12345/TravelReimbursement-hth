@@ -18,7 +18,7 @@ import java.util.List;
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
     @Override
     @Cacheable(value = "employee", key = "#keyword ?: 'all'")
-    public List<EmployeeVO> GET_EMPLOYEE_LIST(String keyword) {
+    public List<EmployeeVO> getEmployeeList(String keyword) {
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
         if (StringUtils.hasText(keyword)) {
             queryWrapper.and(wrapper -> wrapper

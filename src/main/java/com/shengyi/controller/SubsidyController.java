@@ -24,8 +24,8 @@ public class SubsidyController {
      * 获取补助信息汇总
      */
     @GetMapping("/reimbursement/subsidy/summary")
-    public Result<List<SubsidySummaryVO>> GET_SUBSIDY_SUMMARY(@RequestParam String reimbursementId) {
-        List<SubsidySummaryVO> list = subsidyService.GET_SUBSIDY_SUMMARY(reimbursementId);
+    public Result<List<SubsidySummaryVO>> getSubsidySummary(@RequestParam String reimbursementId) {
+        List<SubsidySummaryVO> list = subsidyService.getSubsidySummary(reimbursementId);
         return Result.success(list);
     }
 
@@ -33,8 +33,8 @@ public class SubsidyController {
      * 获取补助日历明细
      */
     @GetMapping("/trip/subsidy/calendar")
-    public Result<SubsidyCalendarVO> GET_SUBSIDY_CALENDAR(@RequestParam String tripId) {
-        SubsidyCalendarVO subsidyCalendarVO = subsidyService.GET_SUBSIDY_CALENDAR(tripId);
+    public Result<SubsidyCalendarVO> getSubsidyCalendar(@RequestParam String tripId) {
+        SubsidyCalendarVO subsidyCalendarVO = subsidyService.getSubsidyCalendar(tripId);
         return Result.success(subsidyCalendarVO);
     }
 
@@ -42,8 +42,8 @@ public class SubsidyController {
      * 保存补助日历信息
      */
     @PostMapping("/trip/subsidy/save")
-    public Result<Void> POST_SUBSIDY_SAVE(@RequestBody SubsidySaveDTO dto) {
-        subsidyService.POST_SUBSIDY_SAVE(dto);
+    public Result<Void> saveSubsidy(@RequestBody SubsidySaveDTO dto) {
+        subsidyService.saveSubsidy(dto);
         return Result.success();
     }
 }

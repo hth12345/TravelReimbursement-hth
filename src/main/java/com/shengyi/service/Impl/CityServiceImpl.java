@@ -15,7 +15,7 @@ public class CityServiceImpl extends ServiceImpl<CityTypeConfigMapper, CityTypeC
 
     @Override
     @Cacheable(value = "city")
-    public List<CityVO> GET_CITY_LIST() {
+    public List<CityVO> getCityList() {
         return this.list().stream().map(c -> {
             CityVO vo = new CityVO();
             vo.setCityNo(c.getCityNo());

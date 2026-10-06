@@ -51,7 +51,7 @@ public class SubsidyServiceImpl implements SubsidyService {
     private AuditLogService auditLogService;
 
     @Override
-    public List<SubsidySummaryVO> GET_SUBSIDY_SUMMARY(String reimbursementId) {
+    public List<SubsidySummaryVO> getSubsidySummary(String reimbursementId) {
         // 1. 查缓存
         List<SubsidySummaryVO> cached = redisCacheService.getSubsidySummary(reimbursementId);
         if (cached != null) {
@@ -60,7 +60,7 @@ public class SubsidyServiceImpl implements SubsidyService {
 
         // 2. 缓存未命中 → 查 DB
         Long id = Long.parseLong(reimbursementId);
-        List<SubsidySummaryVO> list = reimbursementMapper.GET_SUBSIDY_SUMMARY_BY_REIMBURSEMENT_ID(id);
+        List<SubsidySummaryVO> list = reimbursementMapper.selectSubsidySummaryByReimbursementId(id);
 
         // 3. 写入缓存（30 min）
         redisCacheService.setSubsidySummary(reimbursementId, list);
@@ -68,7 +68,7 @@ public class SubsidyServiceImpl implements SubsidyService {
     }
 
     @Override
-    public SubsidyCalendarVO GET_SUBSIDY_CALENDAR(String tripId) {
+    public SubsidyCalendarVO getSubsidyCalendar(String tripId) {
         Long tid = Long.parseLong(tripId);
 
         Trip trip = tripMapper.selectById(tid);
@@ -143,7 +143,7 @@ public class SubsidyServiceImpl implements SubsidyService {
 
     @Override
     @Transactional
-    public void POST_SUBSIDY_SAVE(SubsidySaveDTO dto) {
+    public void saveSubsidy(SubsidySaveDTO dto) {
         Long tid = Long.parseLong(dto.getTripId());
 
         Trip trip = tripMapper.selectById(tid);

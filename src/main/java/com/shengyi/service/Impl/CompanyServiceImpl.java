@@ -16,7 +16,7 @@ import java.util.List;
 public class CompanyServiceImpl extends ServiceImpl<CompanyMapper, Company> implements CompanyService {
     @Override
     @Cacheable(value = "company")
-    public List<CompanyVO> GET_COMPANY_LIST() {
+    public List<CompanyVO> getCompanyList() {
         List<Company> list = this.list();
         return list.stream().map(company -> {
             CompanyVO vo = new CompanyVO();

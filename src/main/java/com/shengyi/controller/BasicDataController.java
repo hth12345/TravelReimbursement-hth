@@ -31,8 +31,8 @@ public class BasicDataController {
      * @return 包含员工信息的列表结果
      */
     @GetMapping("/employee/list")
-    public Result<List<EmployeeVO>> GET_EMPLOYEE_LIST(String keyword) {
-        List<EmployeeVO> list = employeeService.GET_EMPLOYEE_LIST(keyword);
+    public Result<List<EmployeeVO>> getEmployeeList(String keyword) {
+        List<EmployeeVO> list = employeeService.getEmployeeList(keyword);
         return Result.success(list);
     }
 
@@ -41,8 +41,8 @@ public class BasicDataController {
      * @return 包含部门信息的列表结果
      */
     @GetMapping("/department/list")
-    public Result<List<DepartVO>> GET_DEPARTMENT_LIST() {
-        List<DepartVO> list = departService.GET_DEPARTMENT_LIST();
+    public Result<List<DepartVO>> getDepartmentList() {
+        List<DepartVO> list = departService.getDepartmentList();
         return Result.success(list);
     }
 
@@ -51,8 +51,8 @@ public class BasicDataController {
      * @return 包含公司信息的列表结果
      */
     @GetMapping("/company/list")
-    public Result<List<CompanyVO>> GET_COMPANY_LIST() {
-        List<CompanyVO> list = companyService.GET_COMPANY_LIST();
+    public Result<List<CompanyVO>> getCompanyList() {
+        List<CompanyVO> list = companyService.getCompanyList();
         return Result.success(list);
     }
 
@@ -61,8 +61,8 @@ public class BasicDataController {
      * @return 包含业务类型树形节点的列表结果
      */
     @GetMapping("/businessType/tree")
-    public Result<List<BusinessTypeTreeNode>> GET_BUSINESS_TYPE_TREE() {
-        List<BusinessTypeTreeNode> list = businessTypeService.GET_BUSINESS_TYPE_TREE();
+    public Result<List<BusinessTypeTreeNode>> getBusinessTypeTree() {
+        List<BusinessTypeTreeNode> list = businessTypeService.getBusinessTypeTree();
         return Result.success(list);
     }
 
@@ -70,8 +70,8 @@ public class BasicDataController {
      * 获取城市列表（出发/到达城市下拉框）
      */
     @GetMapping("/city/list")
-    public Result<List<CityVO>> GET_CITY_LIST() {
-        List<CityVO> list = cityService.GET_CITY_LIST();
+    public Result<List<CityVO>> getCityList() {
+        List<CityVO> list = cityService.getCityList();
         return Result.success(list);
     }
 }

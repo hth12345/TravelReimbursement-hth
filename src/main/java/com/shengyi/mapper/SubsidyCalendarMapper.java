@@ -13,5 +13,5 @@ public interface SubsidyCalendarMapper extends BaseMapper<SubsidyCalendar> {
      * 删除指定行程的所有补助日历记录（编辑时先删后建）
      */
     @Delete("DELETE FROM subsidy_calendar WHERE trip_id = #{tripId}")
-    int DELETE_BY_TRIP_ID(@Param("tripId") Long tripId);
+    int deleteByTripId(@Param("tripId") Long tripId);
 }

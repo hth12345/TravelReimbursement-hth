@@ -8,9 +8,9 @@ import com.shengyi.vo.TripVO;
 
 public interface TripService extends IService<Trip> {
 
-    String POST_TRIP_SAVE(TripSaveDTO dto);
+    String saveTrip(TripSaveDTO dto);
 
-    void DELETE_TRIP(String tripId);
+    void deleteTrip(String tripId);
 
-    TripVO POST_TRIP_COPY(TripCopyDTO dto);
+    TripVO copyTrip(TripCopyDTO dto);
 }

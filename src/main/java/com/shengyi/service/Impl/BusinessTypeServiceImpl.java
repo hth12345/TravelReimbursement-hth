@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class BusinessTypeServiceImpl extends ServiceImpl<BusinessTypeMapper, BusinessType> implements BusinessTypeService {
     @Override
     @Cacheable(value = "businessType")
-    public List<BusinessTypeTreeNode> GET_BUSINESS_TYPE_TREE() {
+    public List<BusinessTypeTreeNode> getBusinessTypeTree() {
         List<BusinessType> list = this.list();
 
         // 一条 SQL 查出全部，转成 Map（businessTypeId → superiorId）

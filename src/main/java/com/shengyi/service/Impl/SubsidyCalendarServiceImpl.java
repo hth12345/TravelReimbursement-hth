@@ -34,19 +34,14 @@ public class SubsidyCalendarServiceImpl extends ServiceImpl<SubsidyCalendarMappe
 
     @Override
     @Transactional
-    public void DELETE_BY_TRIP_ID(Long tripId) {
-        subsidyCalendarMapper.DELETE_BY_TRIP_ID(tripId);
+    public void deleteByTripId(Long tripId) {
+        subsidyCalendarMapper.deleteByTripId(tripId);
     }
 
-    @Override
-    @Transactional
-    public void SAVE_BATCH(List<SubsidyCalendar> list) {
-        this.saveBatch(list);
-    }
     @Async
     @Override
     @Transactional
-    public void GENERATE_CALENDAR(Long reimbursementId, Long tripId,
+    public void generateCalendar(Long reimbursementId, Long tripId,
                                   LocalDate startDate, LocalDate endDate,
                                   String arrivalCity) {
         System.out.println("=== GENERATE_CALENDAR 开始 ===");

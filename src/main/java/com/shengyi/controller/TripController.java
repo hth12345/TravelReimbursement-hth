@@ -24,8 +24,8 @@ public class TripController {
      * @return 新创建或更新的行程ID
      */
     @PostMapping("/save")
-    public Result<String> POST_TRIP_SAVE(@RequestBody TripSaveDTO dto) {
-        String tripId = tripService.POST_TRIP_SAVE(dto);
+    public Result<String> saveTrip(@RequestBody TripSaveDTO dto) {
+        String tripId = tripService.saveTrip(dto);
         return Result.success(tripId);
     }
     /**
@@ -34,8 +34,8 @@ public class TripController {
      * @return 操作结果
      */
     @DeleteMapping("/delete/{tripId}")
-    public Result<Void> DELETE_TRIP(@PathVariable String tripId) {
-        tripService.DELETE_TRIP(tripId);
+    public Result<Void> deleteTrip(@PathVariable String tripId) {
+        tripService.deleteTrip(tripId);
         return Result.success();
     }
     /**
@@ -44,8 +44,8 @@ public class TripController {
      * @return 复制后的行程信息
      */
     @PostMapping("/copy")
-    public Result<TripVO> POST_TRIP_COPY(@RequestBody TripCopyDTO dto) {
-        TripVO tripVO = tripService.POST_TRIP_COPY(dto);
+    public Result<TripVO> copyTrip(@RequestBody TripCopyDTO dto) {
+        TripVO tripVO = tripService.copyTrip(dto);
         return Result.success(tripVO);
     }
 }

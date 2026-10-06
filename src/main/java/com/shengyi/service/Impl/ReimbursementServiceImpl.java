@@ -48,7 +48,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
     private AuditLogService auditLogService;
 
     @Override
-    public PageResult<ReimbursementListVO> POST_REIMBURSEMENT_LIST(ReimbursementListDTO query) {
+    public PageResult<ReimbursementListVO> getReimbursementList(ReimbursementListDTO query) {
         query.setPageSize(Math.max(1, Math.min(query.getPageSize(), 100)));
         query.setPageNo(Math.max(1, query.getPageNo()));
 
@@ -81,7 +81,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
 
         // 3. 缓存未命中或需要修复 → 查 DB
         Page<ReimbursementListVO> page = Page.of(query.getPageNo(), query.getPageSize());
-        Page<ReimbursementListVO> p = reimbursementMapper.POST_REIMBURSEMENT_LIST(page, query);
+        Page<ReimbursementListVO> p = reimbursementMapper.selectReimbursementList(page, query);
         
         // 4. 自动修复补助金额不一致的问题
         List<ReimbursementListVO> records = p.getRecords();
@@ -115,21 +115,21 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
     }
 
     @Override
-    public ReimbursementDetailVO GET_REIMBURSEMENT_DETAIL(String reimbursementId) {
+    public ReimbursementDetailVO getReimbursementDetail(String reimbursementId) {
         Long id = Long.parseLong(reimbursementId);
 
         // 1. 查询报销单基本信息
-        ReimbursementDetailVO detail = reimbursementMapper.GET_REIMBURSEMENT_DETAIL(id);
+        ReimbursementDetailVO detail = reimbursementMapper.selectReimbursementDetail(id);
         if (detail == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单不存在");
         }
 
         // 2. 查询关联的补录行程列表
-        List<TripVO> tripList = reimbursementMapper.GET_TRIPS_BY_REIMBURSEMENT_ID(id);
+        List<TripVO> tripList = reimbursementMapper.selectTripsByReimbursementId(id);
         detail.setTripList(tripList != null ? tripList : Collections.emptyList());
 
         // 3. 查询补助信息汇总列表
-        List<SubsidySummaryVO> subsidySummaryList = reimbursementMapper.GET_SUBSIDY_SUMMARY_BY_REIMBURSEMENT_ID(id);
+        List<SubsidySummaryVO> subsidySummaryList = reimbursementMapper.selectSubsidySummaryByReimbursementId(id);
         detail.setSubsidySummaryList(subsidySummaryList != null ? subsidySummaryList : Collections.emptyList());
 
         return detail;
@@ -137,7 +137,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
 
     @Override
     @Transactional
-    public Long POST_REIMBURSEMENT_SAVE_DRAFT(ReimbursementSaveDTO dto) {
+    public Long saveDraft(ReimbursementSaveDTO dto) {
         // ---- 新建草稿 ----
         if (!StringUtils.hasText(dto.getReimbursementId())) {
             return createDraft(dto);
@@ -176,7 +176,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         fillEmployeeInfo(update);
         fillBusinessTypeInfo(update);
 
-        int rows = reimbursementMapper.UPDATE_DRAFT_WITH_VERSION(update);
+        int rows = reimbursementMapper.updateDraftWithVersion(update);
         if (rows == 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "更新失败：数据已被他人修改或状态已变更");
         }
@@ -290,7 +290,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
 
     @Override
     @Transactional
-    public void POST_REIMBURSEMENT_SUBMIT(ReimbursementSaveDTO dto) {
+    public void submitReimbursement(ReimbursementSaveDTO dto) {
         Long id = Long.parseLong(dto.getReimbursementId());
         Reimbursement existing = this.getById(id);
 
@@ -309,23 +309,23 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         validateRequiredFields(existing);
 
         // 3. 行程非空校验
-        if (reimbursementMapper.COUNT_TRIPS_BY_REIMBURSEMENT_ID(id) == 0) {
+        if (reimbursementMapper.countTripsByReimbursementId(id) == 0) {
             throw new BusinessException(StatusCode.REQUIRED_FIELD_EMPTY, "补录行程不能为空");
         }
 
         // 4. 补助非空校验
-        if (reimbursementMapper.COUNT_SUBSIDY_BY_REIMBURSEMENT_ID(id) == 0) {
+        if (reimbursementMapper.countSubsidyByReimbursementId(id) == 0) {
             throw new BusinessException(StatusCode.REQUIRED_FIELD_EMPTY, "补助信息不能为空");
         }
 
         // 5. 行程日期重叠校验 → 50031
-        int overlapCount = reimbursementMapper.COUNT_TRIP_DATE_OVERLAP(id);
+        int overlapCount = reimbursementMapper.countTripDateOverlap(id);
         if (overlapCount > 0) {
             throw new BusinessException(StatusCode.DATE_OVERLAP, "存在行程日期重叠，请调整出行日期");
         }
 
         // 6. 补助金额超标校验 → 50021
-        int exceedCount = reimbursementMapper.COUNT_SUBSIDY_AMOUNT_EXCEED(id);
+        int exceedCount = reimbursementMapper.countSubsidyAmountExceed(id);
         if (exceedCount > 0) {
             throw new BusinessException(StatusCode.AMOUNT_EXCEED_STANDARD, "补助金额超过标准，请调整补助金额");
         }
@@ -338,7 +338,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         }
 
         // 8. 校验通过：更新状态
-        int rows = reimbursementMapper.SUBMIT_DRAFT(id, dto.getVersion());
+        int rows = reimbursementMapper.submitDraft(id, dto.getVersion());
         if (rows == 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "提交失败：数据已被他人修改或状态已变更");
         }
@@ -353,7 +353,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
      * 从 subsidy_calendar 表汇总所有补助明细
      */
     private BigDecimal calculateTotalSubsidy(Long reimbursementId) {
-        List<SubsidySummaryVO> summaryList = reimbursementMapper.GET_SUBSIDY_SUMMARY_BY_REIMBURSEMENT_ID(reimbursementId);
+        List<SubsidySummaryVO> summaryList = reimbursementMapper.selectSubsidySummaryByReimbursementId(reimbursementId);
         if (summaryList == null || summaryList.isEmpty()) {
             return BigDecimal.ZERO.setScale(2);
         }
@@ -371,7 +371,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
 
     @Override
     @Transactional
-    public void POST_REIMBURSEMENT_WITHDRAW(String reimbursementId) {
+    public void withdrawReimbursement(String reimbursementId) {
         Long id = Long.parseLong(reimbursementId);
         Reimbursement existing = this.getById(id);
 
@@ -386,7 +386,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         }
 
         // 3. 执行撤回：1 → 0
-        int rows = reimbursementMapper.WITHDRAW(id);
+        int rows = reimbursementMapper.withdraw(id);
         if (rows == 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "撤回失败：状态已变更");
         }
@@ -400,7 +400,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
 
     @Override
     @Transactional
-    public void POST_REIMBURSEMENT_INVALIDATE(String reimbursementId) {
+    public void invalidateReimbursement(String reimbursementId) {
         Long id = Long.parseLong(reimbursementId);
         Reimbursement existing = this.getById(id);
 
@@ -416,7 +416,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         }
 
         // 3. 执行作废 → 状态 4
-        int rows = reimbursementMapper.INVALIDATE(id);
+        int rows = reimbursementMapper.invalidate(id);
         if (rows == 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "作废失败：状态已变更");
         }
@@ -430,7 +430,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
 
     @Override
     @Transactional
-    public void DELETE_REIMBURSEMENT(String reimbursementId) {
+    public void deleteReimbursement(String reimbursementId) {
         // 参数校验
         if (!StringUtils.hasText(reimbursementId) || "undefined".equals(reimbursementId)) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单ID不能为空");
@@ -457,7 +457,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         }
 
         // 3. 逻辑删除：deleted 0 → 1
-        int rows = reimbursementMapper.DELETE_BY_ID(id);
+        int rows = reimbursementMapper.logicalDeleteById(id);
         if (rows == 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "删除失败：状态已变更或已删除");
         }

@@ -25,8 +25,8 @@ public class ReimbursementController {
      * @return 分页的报销单列表结果
      */
     @PostMapping("/list")
-    public Result<PageResult<ReimbursementListVO>> POST_REIMBURSEMENT_LIST(@RequestBody ReimbursementListDTO query) {
-        PageResult<ReimbursementListVO> pageResult = reimbursementService.POST_REIMBURSEMENT_LIST(query);
+    public Result<PageResult<ReimbursementListVO>> getReimbursementList(@RequestBody ReimbursementListDTO query) {
+        PageResult<ReimbursementListVO> pageResult = reimbursementService.getReimbursementList(query);
         return Result.success(pageResult);
     }
 
@@ -36,8 +36,8 @@ public class ReimbursementController {
      * @return 报销单详细信息结果
      */
     @GetMapping("/detail/{reimbursementId}")
-    public Result<ReimbursementDetailVO> GET_REIMBURSEMENT_DETAIL(@PathVariable String reimbursementId) {
-        ReimbursementDetailVO detailVO = reimbursementService.GET_REIMBURSEMENT_DETAIL(reimbursementId);
+    public Result<ReimbursementDetailVO> getReimbursementDetail(@PathVariable String reimbursementId) {
+        ReimbursementDetailVO detailVO = reimbursementService.getReimbursementDetail(reimbursementId);
         return Result.success(detailVO);
     }
 
@@ -47,8 +47,8 @@ public class ReimbursementController {
      * @return 新创建的报销单ID
      */
     @PostMapping("/saveDraft")
-    public Result<Long> POST_REIMBURSEMENT_SAVE_DRAFT(@RequestBody ReimbursementSaveDTO dto) {
-        Long reimbursementId = reimbursementService.POST_REIMBURSEMENT_SAVE_DRAFT(dto);
+    public Result<Long> saveDraft(@RequestBody ReimbursementSaveDTO dto) {
+        Long reimbursementId = reimbursementService.saveDraft(dto);
         return Result.success(reimbursementId);
     }
 
@@ -58,8 +58,8 @@ public class ReimbursementController {
      * @return 操作结果
      */
     @PostMapping("/submit")
-    public Result<Void> POST_REIMBURSEMENT_SUBMIT(@RequestBody ReimbursementSaveDTO dto) {
-        reimbursementService.POST_REIMBURSEMENT_SUBMIT(dto);
+    public Result<Void> submitReimbursement(@RequestBody ReimbursementSaveDTO dto) {
+        reimbursementService.submitReimbursement(dto);
         return Result.success(null);
     }
 
@@ -69,8 +69,8 @@ public class ReimbursementController {
      * @return 操作结果
      */
     @PostMapping("/withdraw/{reimbursementId}")
-    public Result<Void> POST_REIMBURSEMENT_WITHDRAW(@PathVariable String reimbursementId) {
-        reimbursementService.POST_REIMBURSEMENT_WITHDRAW(reimbursementId);
+    public Result<Void> withdrawReimbursement(@PathVariable String reimbursementId) {
+        reimbursementService.withdrawReimbursement(reimbursementId);
         return Result.success(null);
     }
 
@@ -80,8 +80,8 @@ public class ReimbursementController {
      * @return 操作结果
      */
     @PostMapping("/invalidate/{reimbursementId}")
-    public Result<Void> POST_REIMBURSEMENT_INVALIDATE(@PathVariable String reimbursementId) {
-        reimbursementService.POST_REIMBURSEMENT_INVALIDATE(reimbursementId);
+    public Result<Void> invalidateReimbursement(@PathVariable String reimbursementId) {
+        reimbursementService.invalidateReimbursement(reimbursementId);
         return Result.success(null);
     }
 
@@ -91,8 +91,8 @@ public class ReimbursementController {
      * @return 操作结果
      */
     @DeleteMapping("/delete/{reimbursementId}")
-    public Result<Void> DELETE_REIMBURSEMENT(@PathVariable String reimbursementId) {
-        reimbursementService.DELETE_REIMBURSEMENT(reimbursementId);
+    public Result<Void> deleteReimbursement(@PathVariable String reimbursementId) {
+        reimbursementService.deleteReimbursement(reimbursementId);
         return Result.success(null);
     }
 }

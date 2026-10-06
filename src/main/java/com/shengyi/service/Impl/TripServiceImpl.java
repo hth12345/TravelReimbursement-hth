@@ -44,7 +44,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
 
     @Override
     @Transactional
-    public String POST_TRIP_SAVE(TripSaveDTO dto) {
+    public String saveTrip(TripSaveDTO dto) {
         validateTripRequired(dto);
 
         if (dto.getEndDate().isBefore(dto.getStartDate())) {
@@ -67,14 +67,14 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
         if (isUpdate) {
             Long tripId = Long.parseLong(dto.getTripId());
             oldTrip = this.getById(tripId);
-            int overlapCount = tripMapper.COUNT_DATE_OVERLAP_EXCLUDE_SELF(
+            int overlapCount = tripMapper.countDateOverlapExcludeSelf(
                     dto.getReimbursementId(), dto.getTravelerId(), tripId,
                     dto.getStartDate(), dto.getEndDate());
             if (overlapCount > 0) {
                 throw new BusinessException(StatusCode.DATE_OVERLAP, "该出行人在此时段已有其他行程");
             }
         } else {
-            int overlapCount = tripMapper.COUNT_DATE_OVERLAP(
+            int overlapCount = tripMapper.countDateOverlap(
                     dto.getReimbursementId(), dto.getTravelerId(),
                     dto.getStartDate(), dto.getEndDate());
             if (overlapCount > 0) {
@@ -84,7 +84,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
 
         Trip trip = buildTrip(dto, isUpdate);
         if (isUpdate) {
-            subsidyCalendarService.DELETE_BY_TRIP_ID(Long.parseLong(dto.getTripId()));
+            subsidyCalendarService.deleteByTripId(Long.parseLong(dto.getTripId()));
             this.updateById(trip);
             auditLogService.record(OperationType.TRIP_UPDATE, String.valueOf(trip.getId()), oldTrip, trip);
         } else {
@@ -94,7 +94,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
         }
 
         System.out.println("=== 准备生成补助日历 ===");
-        subsidyCalendarService.GENERATE_CALENDAR(
+        subsidyCalendarService.generateCalendar(
                 trip.getReimbursementId(), trip.getId(),
                 trip.getStartDate(), trip.getEndDate(), trip.getArrivalCity());
 
@@ -107,7 +107,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
 
     @Override
     @Transactional
-    public void DELETE_TRIP(String tripId) {
+    public void deleteTrip(String tripId) {
         Long id = Long.parseLong(tripId);
         Trip trip = this.getById(id);
         if (trip == null) {
@@ -119,7 +119,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可删除行程");
         }
 
-        subsidyCalendarService.DELETE_BY_TRIP_ID(id);
+        subsidyCalendarService.deleteByTripId(id);
         this.removeById(id);
 
         auditLogService.record(OperationType.TRIP_DELETE, String.valueOf(id), trip, null);
@@ -131,7 +131,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
 
     @Override
     @Transactional
-    public TripVO POST_TRIP_COPY(TripCopyDTO dto) {
+    public TripVO copyTrip(TripCopyDTO dto) {
         Long srcId = Long.parseLong(dto.getSourceTripId());
         Long targetId = Long.parseLong(dto.getTargetReimbursementId());
 
@@ -148,7 +148,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可新增行程");
         }
 
-        int overlapCount = tripMapper.COUNT_DATE_OVERLAP(
+        int overlapCount = tripMapper.countDateOverlap(
                 targetId, source.getTravelerId(),
                 source.getStartDate(), source.getEndDate());
         if (overlapCount > 0) {
@@ -168,7 +168,7 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
 
         auditLogService.record(OperationType.TRIP_COPY, String.valueOf(newTrip.getId()), source, newTrip);
 
-        subsidyCalendarService.GENERATE_CALENDAR(
+        subsidyCalendarService.generateCalendar(
                 newTrip.getReimbursementId(), newTrip.getId(),
                 newTrip.getStartDate(), newTrip.getEndDate(), newTrip.getArrivalCity());
 

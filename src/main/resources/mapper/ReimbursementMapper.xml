@@ -24,7 +24,7 @@
         <result column="create_time" property="createTime"/>
     </resultMap>
 
-    <select id="POST_REIMBURSEMENT_LIST" resultMap="ReimbursementVOResultMap">
+    <select id="selectReimbursementList" resultMap="ReimbursementVOResultMap">
         SELECT
         r.id,
         r.reimbursement_no,
@@ -97,7 +97,7 @@
         <result column="updateTime" property="updateTime"/>
     </resultMap>
 
-    <select id="GET_REIMBURSEMENT_DETAIL" resultMap="ReimbursementDetailVOResultMap">
+    <select id="selectReimbursementDetail" resultMap="ReimbursementDetailVOResultMap">
         SELECT
             CAST(r.id AS CHAR)          AS reimbursementId,
             r.reimbursement_no          AS reimbursementNo,
@@ -136,7 +136,7 @@
         <result column="description" property="description"/>
     </resultMap>
 
-    <select id="GET_TRIPS_BY_REIMBURSEMENT_ID" resultMap="TripVOResultMap">
+    <select id="selectTripsByReimbursementId" resultMap="TripVOResultMap">
         SELECT
             CAST(t.id AS CHAR)        AS tripId,
             t.traveler_id             AS travelerId,
@@ -162,7 +162,7 @@
         <result column="subsidyAmount" property="subsidyAmount"/>
     </resultMap>
 
-    <select id="GET_SUBSIDY_SUMMARY_BY_REIMBURSEMENT_ID" resultMap="SubsidySummaryVOResultMap">
+    <select id="selectSubsidySummaryByReimbursementId" resultMap="SubsidySummaryVOResultMap">
         SELECT
             CAST(t.id AS CHAR)      AS tripId,
             t.traveler_name         AS travelerName,
@@ -196,7 +196,7 @@
     </select>
 
     <!-- ==================== 更新草稿（乐观锁） ==================== -->
-    <update id="UPDATE_DRAFT_WITH_VERSION">
+    <update id="updateDraftWithVersion">
         UPDATE reimbursement SET
             title = #{title},
             reason = #{reason},
@@ -218,7 +218,7 @@
     </update>
 
     <!-- ==================== 校验行程日期重叠 ==================== -->
-    <select id="COUNT_TRIP_DATE_OVERLAP" resultType="int">
+    <select id="countTripDateOverlap" resultType="int">
         SELECT COUNT(*)
         FROM trip a
         INNER JOIN trip b ON a.reimbursement_id = b.reimbursement_id AND a.id &lt; b.id
@@ -227,11 +227,11 @@
     </select>
 
     <!-- ==================== 校验行程和补助非空 ==================== -->
-    <select id="COUNT_TRIPS_BY_REIMBURSEMENT_ID" resultType="long">
+    <select id="countTripsByReimbursementId" resultType="long">
         SELECT COUNT(*) FROM trip WHERE reimbursement_id = #{reimbursementId}
     </select>
 
-    <select id="COUNT_SUBSIDY_BY_REIMBURSEMENT_ID" resultType="long">
+    <select id="countSubsidyByReimbursementId" resultType="long">
         SELECT COUNT(*) FROM subsidy_calendar WHERE reimbursement_id = #{reimbursementId}
     </select>
 

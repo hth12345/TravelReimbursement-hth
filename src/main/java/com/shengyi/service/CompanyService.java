@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface CompanyService extends IService<Company> {
 
-    List<CompanyVO> GET_COMPANY_LIST();
+    List<CompanyVO> getCompanyList();
 }

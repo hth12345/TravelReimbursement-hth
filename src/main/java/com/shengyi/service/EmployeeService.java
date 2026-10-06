@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface EmployeeService extends IService<Employee> {
 
-    List<EmployeeVO> GET_EMPLOYEE_LIST(String keyword);
+    List<EmployeeVO> getEmployeeList(String keyword);
 }

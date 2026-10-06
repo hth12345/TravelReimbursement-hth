@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface SubsidyService {
 
-    List<SubsidySummaryVO> GET_SUBSIDY_SUMMARY(String reimbursementId);
+    List<SubsidySummaryVO> getSubsidySummary(String reimbursementId);
 
-    SubsidyCalendarVO GET_SUBSIDY_CALENDAR(String tripId);
+    SubsidyCalendarVO getSubsidyCalendar(String tripId);
 
-    void POST_SUBSIDY_SAVE(SubsidySaveDTO dto);
+    void saveSubsidy(SubsidySaveDTO dto);
 }

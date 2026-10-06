@@ -4,7 +4,7 @@
 <mapper namespace="com.shengyi.mapper.TripMapper">
 
     <!-- 校验同报销单 + 同出行人下是否存在日期重叠 -->
-    <select id="COUNT_DATE_OVERLAP" resultType="int">
+    <select id="countDateOverlap" resultType="int">
         SELECT COUNT(*)
         FROM trip
         WHERE reimbursement_id = #{reimbursementId}
@@ -14,7 +14,7 @@
     </select>
 
     <!-- 校验更新时同报销单 + 同出行人下是否存在日期重叠（排除当前行程） -->
-    <select id="COUNT_DATE_OVERLAP_EXCLUDE_SELF" resultType="int">
+    <select id="countDateOverlapExcludeSelf" resultType="int">
         SELECT COUNT(*)
         FROM trip
         WHERE reimbursement_id = #{reimbursementId}

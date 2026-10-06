@@ -12,5 +12,5 @@ import java.util.List;
  */
 public interface BusinessTypeService extends IService<BusinessType> {
 
-    List<BusinessTypeTreeNode> GET_BUSINESS_TYPE_TREE();
+    List<BusinessTypeTreeNode> getBusinessTypeTree();
 }
