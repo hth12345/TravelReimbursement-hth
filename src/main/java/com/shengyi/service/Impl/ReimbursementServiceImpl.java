@@ -9,15 +9,23 @@ import com.shengyi.config.RedisCacheService;
 import com.shengyi.dto.ReimbursementListDTO;
 import com.shengyi.dto.ReimbursementSaveDTO;
 import com.shengyi.entity.*;
+import com.shengyi.entity.SubsidyFixTask;
 import com.shengyi.exception.BusinessException;
 import com.shengyi.exception.StatusCode;
 import com.shengyi.mapper.ReimbursementMapper;
+import com.shengyi.mapper.SubsidyFixTaskMapper;
 import com.shengyi.service.*;
+import com.shengyi.validation.SubmitValidationStrategy;
+import com.shengyi.validation.ValidationContext;
 import com.shengyi.vo.ReimbursementDetailVO;
 import com.shengyi.vo.ReimbursementListVO;
 import com.shengyi.vo.PageResult;
 import com.shengyi.vo.SubsidySummaryVO;
 import com.shengyi.vo.TripVO;
+import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RAtomicLong;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +36,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Service
 public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, Reimbursement> implements ReimbursementService {
     @Autowired
@@ -46,6 +55,12 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
     private RedisCacheService redisCacheService;
     @Autowired
     private AuditLogService auditLogService;
+    @Autowired
+    private RedissonClient redissonClient;
+    @Autowired
+    private List<SubmitValidationStrategy> validationStrategies;
+    @Autowired
+    private SubsidyFixTaskMapper subsidyFixTaskMapper;
 
     @Override
     public PageResult<ReimbursementListVO> getReimbursementList(ReimbursementListDTO query) {
@@ -55,7 +70,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         // 1. 查缓存（Hash 结构）
         String queryHash = RedisCacheService.computeQueryHash(query);
         PageResult<ReimbursementListVO> cached = redisCacheService.getReimbList(queryHash);
-        
+
         // 检查并修复补助金额
         if (cached != null) {
             List<ReimbursementListVO> cachedRecords = cached.getRecords();
@@ -69,7 +84,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
                         }
                     }
                 }
-                
+
                 // 如果需要修复，跳过缓存重新查询
                 if (!needFix) {
                     return cached;
@@ -82,31 +97,23 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         // 3. 缓存未命中或需要修复 → 查 DB
         Page<ReimbursementListVO> page = Page.of(query.getPageNo(), query.getPageSize());
         Page<ReimbursementListVO> p = reimbursementMapper.selectReimbursementList(page, query);
-        
-        // 4. 自动修复补助金额不一致的问题
+
+        // 4. 发现补助金额不一致时，写入本地消息表，由定时任务异步修复
         List<ReimbursementListVO> records = p.getRecords();
         if (records != null && !records.isEmpty()) {
             for (ReimbursementListVO vo : records) {
-                // 对于审批中的报销单，实时计算并修复补助金额
                 if (vo.getStatus() != null && vo.getStatus() == 1) {
                     Long reimbursementId = vo.getReimbursementId();
                     if (reimbursementId != null) {
-                        BigDecimal actualSubsidy = calculateTotalSubsidy(reimbursementId);
-                        if (vo.getSubsidyAmount() == null || vo.getSubsidyAmount().compareTo(actualSubsidy) != 0) {
-                            // 更新数据库中的补助金额
-                            Reimbursement reimbursement = this.getById(reimbursementId);
-                            if (reimbursement != null && reimbursement.getSubsidyAmount().compareTo(actualSubsidy) != 0) {
-                                reimbursement.setSubsidyAmount(actualSubsidy);
-                                reimbursementMapper.updateById(reimbursement);
-                                // 更新 VO 中的金额
-                                vo.setSubsidyAmount(actualSubsidy);
-                            }
+                        if (vo.getSubsidyAmount() == null || vo.getSubsidyAmount().compareTo(BigDecimal.ZERO) == 0) {
+                            // 写入修复任务表，定时任务会异步处理
+                            insertSubsidyFixTask(reimbursementId);
                         }
                     }
                 }
             }
         }
-        
+
         PageResult<ReimbursementListVO> pageResult = new PageResult<>(p.getTotal(), (int) p.getPages(), (int) p.getCurrent(), (int) p.getSize(), p.getRecords());
 
         // 5. 写入缓存
@@ -145,14 +152,14 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
 
         // ---- 更新草稿 ----
         Long id = Long.parseLong(dto.getReimbursementId());
-        Reimbursement existing = this.getById(id);
-        if (existing == null) {
+        Reimbursement reimbursementRes = this.getById(id);
+        if (reimbursementRes == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单不存在");
         }
-        if (existing.getStatus() != 0) {
+        if (reimbursementRes.getStatus() != 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可编辑");
         }
-        if (!existing.getVersion().equals(dto.getVersion())) {
+        if (!reimbursementRes.getVersion().equals(dto.getVersion())) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "数据已被他人修改，请刷新后重试");
         }
 
@@ -160,28 +167,28 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         validateDraftRequired(dto);
 
         // 构建更新对象
-        Reimbursement update = new Reimbursement();
-        update.setId(id);
-        update.setVersion(dto.getVersion()); // 乐观锁条件
-        update.setTitle(dto.getTitle());
-        update.setReason(dto.getReason());
-        update.setCompanyId(dto.getCompanyId());
-        update.setDepartmentId(dto.getDepartmentId());
-        update.setReimburserId(dto.getReimburserId());
-        update.setBusinessTypeId(dto.getBusinessTypeId());
-        update.setRemarks(dto.getRemarks());
+        Reimbursement reimbursementReq = new Reimbursement();
+        reimbursementReq.setId(id);
+        reimbursementReq.setVersion(dto.getVersion()); // 乐观锁条件
+        reimbursementReq.setTitle(dto.getTitle());
+        reimbursementReq.setReason(dto.getReason());
+        reimbursementReq.setCompanyId(dto.getCompanyId());
+        reimbursementReq.setDepartmentId(dto.getDepartmentId());
+        reimbursementReq.setReimburserId(dto.getReimburserId());
+        reimbursementReq.setBusinessTypeId(dto.getBusinessTypeId());
+        reimbursementReq.setRemarks(dto.getRemarks());
 
-        fillCompanyInfo(update);
-        fillDepartmentInfo(update);
-        fillEmployeeInfo(update);
-        fillBusinessTypeInfo(update);
+        fillCompanyInfo(reimbursementReq);
+        fillDepartmentInfo(reimbursementReq);
+        fillEmployeeInfo(reimbursementReq);
+        fillBusinessTypeInfo(reimbursementReq);
 
-        int rows = reimbursementMapper.updateDraftWithVersion(update);
+        int rows = reimbursementMapper.updateDraftWithVersion(reimbursementReq);
         if (rows == 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "更新失败：数据已被他人修改或状态已变更");
         }
 
-        auditLogService.record(OperationType.REIMB_UPDATE, String.valueOf(id), existing, update);
+        auditLogService.record(OperationType.REIMB_UPDATE, String.valueOf(id), reimbursementRes, reimbursementReq);
 
         redisCacheService.evictReimbListCache();
         return id;
@@ -224,12 +231,18 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
     }
 
     /**
-     * 生成报销单号：BX + yyyyMMdd + 6位随机数
+     * 生成报销单号：BX + yyyyMMdd + 6位自增序号（Redisson RAtomicLong 保证唯一）
      */
     private String generateReimbursementNo() {
         String date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        int random = ThreadLocalRandom.current().nextInt(100000, 999999);
-        return "BX" + date + random;
+        String key = "reimbursement:no:seq:" + date;
+        RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
+        long seq = atomicLong.incrementAndGet();
+        // 设置过期时间为 2 天，避免 key 永久存在
+        if (seq == 1) {
+            atomicLong.expire(java.time.Duration.ofDays(2));
+        }
+        return "BX" + date + String.format("%06d", seq);
     }
 
     /**
@@ -292,58 +305,68 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
     @Transactional
     public void submitReimbursement(ReimbursementSaveDTO dto) {
         Long id = Long.parseLong(dto.getReimbursementId());
-        Reimbursement existing = this.getById(id);
 
-        // 1. 基础校验：存在性 + 状态 + 乐观锁
-        if (existing == null) {
+        // 分布式锁防止并发提交
+        String lockKey = "reimbursement:submit:" + id;
+        RLock lock = redissonClient.getLock(lockKey);
+        try {
+            boolean isLock = lock.tryLock(3, 30, TimeUnit.SECONDS);
+            if (!isLock) {
+                throw new BusinessException(StatusCode.SYSTEM_ERROR, "操作过于频繁，请稍后再试");
+            }
+
+            doSubmit(id, dto);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new BusinessException(StatusCode.SYSTEM_ERROR, "提交被中断");
+        } finally {
+            if (lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+        }
+    }
+
+    /**
+     * 提交报销单核心逻辑（在分布式锁保护下执行）
+     */
+    private void doSubmit(Long id, ReimbursementSaveDTO dto) {
+        Reimbursement reimbursement = this.getById(id);
+
+        // 存在性校验
+        if (reimbursement == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单不存在");
         }
-        if (existing.getStatus() != 0) {
-            throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可提交");
-        }
-        if (!existing.getVersion().equals(dto.getVersion())) {
-            throw new BusinessException(StatusCode.SYSTEM_ERROR, "数据已被他人修改，请刷新后重试");
+
+        // 策略链校验：按 @Order 顺序依次执行
+        ValidationContext context = new ValidationContext();
+        for (SubmitValidationStrategy strategy : validationStrategies) {
+            strategy.validate(reimbursement, dto, context);
         }
 
-        // 2. 全量校验：必填字段
-        validateRequiredFields(existing);
-
-        // 3. 行程非空校验
+        // 行程非空校验
         if (reimbursementMapper.countTripsByReimbursementId(id) == 0) {
             throw new BusinessException(StatusCode.REQUIRED_FIELD_EMPTY, "补录行程不能为空");
         }
 
-        // 4. 补助非空校验
+        // 补助非空校验
         if (reimbursementMapper.countSubsidyByReimbursementId(id) == 0) {
             throw new BusinessException(StatusCode.REQUIRED_FIELD_EMPTY, "补助信息不能为空");
         }
 
-        // 5. 行程日期重叠校验 → 50031
-        int overlapCount = reimbursementMapper.countTripDateOverlap(id);
-        if (overlapCount > 0) {
-            throw new BusinessException(StatusCode.DATE_OVERLAP, "存在行程日期重叠，请调整出行日期");
-        }
-
-        // 6. 补助金额超标校验 → 50021
-        int exceedCount = reimbursementMapper.countSubsidyAmountExceed(id);
-        if (exceedCount > 0) {
-            throw new BusinessException(StatusCode.AMOUNT_EXCEED_STANDARD, "补助金额超过标准，请调整补助金额");
-        }
-
-        // 7. 计算并更新补助总金额（关键修复）
+        // 计算并更新补助总金额
         BigDecimal totalSubsidy = calculateTotalSubsidy(id);
-        if (totalSubsidy.compareTo(existing.getSubsidyAmount()) != 0) {
-            existing.setSubsidyAmount(totalSubsidy);
-            reimbursementMapper.updateById(existing);
+        if (totalSubsidy.compareTo(reimbursement.getSubsidyAmount()) != 0) {
+            reimbursement.setSubsidyAmount(totalSubsidy);
+            reimbursementMapper.updateById(reimbursement);
         }
 
-        // 8. 校验通过：更新状态
+        // 校验通过：更新状态
         int rows = reimbursementMapper.submitDraft(id, dto.getVersion());
         if (rows == 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "提交失败：数据已被他人修改或状态已变更");
         }
 
-        auditLogService.record(OperationType.REIMB_SUBMIT, String.valueOf(id), existing, null);
+        auditLogService.record(OperationType.REIMB_SUBMIT, String.valueOf(id), reimbursement, null);
 
         redisCacheService.evictReimbListCache();
     }
@@ -357,7 +380,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         if (summaryList == null || summaryList.isEmpty()) {
             return BigDecimal.ZERO.setScale(2);
         }
-        
+
         BigDecimal total = BigDecimal.ZERO;
         for (SubsidySummaryVO summary : summaryList) {
             if (summary.getSubsidyAmount() != null) {
@@ -373,15 +396,15 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
     @Transactional
     public void withdrawReimbursement(String reimbursementId) {
         Long id = Long.parseLong(reimbursementId);
-        Reimbursement existing = this.getById(id);
+        Reimbursement reimbursement = this.getById(id);
 
         // 1. 校验存在性
-        if (existing == null) {
+        if (reimbursement == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单不存在");
         }
 
         // 2. 校验状态：仅审批中可撤回
-        if (existing.getStatus() != 1) {
+        if (reimbursement.getStatus() != 1) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅审批中状态可撤回");
         }
 
@@ -391,7 +414,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "撤回失败：状态已变更");
         }
 
-        auditLogService.record(OperationType.REIMB_WITHDRAW, String.valueOf(id), existing, null);
+        auditLogService.record(OperationType.REIMB_WITHDRAW, String.valueOf(id), reimbursement, null);
 
         redisCacheService.evictReimbListCache();
     }
@@ -402,15 +425,15 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
     @Transactional
     public void invalidateReimbursement(String reimbursementId) {
         Long id = Long.parseLong(reimbursementId);
-        Reimbursement existing = this.getById(id);
+        Reimbursement reimbursement = this.getById(id);
 
         // 1. 校验存在性
-        if (existing == null) {
+        if (reimbursement == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单不存在");
         }
 
         // 2. 校验状态：仅非终态（0/1/2）可作废
-        int status = existing.getStatus();
+        int status = reimbursement.getStatus();
         if (status != 0 && status != 1 && status != 2) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "当前状态不可作废");
         }
@@ -421,7 +444,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "作废失败：状态已变更");
         }
 
-        auditLogService.record(OperationType.REIMB_INVALIDATE, String.valueOf(id), existing, null);
+        auditLogService.record(OperationType.REIMB_INVALIDATE, String.valueOf(id), reimbursement, null);
 
         redisCacheService.evictReimbListCache();
     }
@@ -435,23 +458,23 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         if (!StringUtils.hasText(reimbursementId) || "undefined".equals(reimbursementId)) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单ID不能为空");
         }
-        
+
         Long id;
         try {
             id = Long.parseLong(reimbursementId);
         } catch (NumberFormatException e) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单ID格式错误");
         }
-        
-        Reimbursement existing = this.getById(id);
+
+        Reimbursement reimbursement = this.getById(id);
 
         // 1. 校验存在性
-        if (existing == null) {
+        if (reimbursement == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单不存在");
         }
 
         // 2. 校验状态：草稿（0）和已作废（4）可删除
-        int status = existing.getStatus();
+        int status = reimbursement.getStatus();
         if (status != 0 && status != 4) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿或已作废状态可删除");
         }
@@ -462,7 +485,7 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "删除失败：状态已变更或已删除");
         }
 
-        auditLogService.record(OperationType.REIMB_DELETE, String.valueOf(id), existing, null);
+        auditLogService.record(OperationType.REIMB_DELETE, String.valueOf(id), reimbursement, null);
 
         redisCacheService.evictReimbListCache();
     }
@@ -504,6 +527,22 @@ public class ReimbursementServiceImpl extends ServiceImpl<ReimbursementMapper, R
         if (!StringUtils.hasText(r.getBusinessTypeId())
                 || !StringUtils.hasText(r.getBusinessTypeName())) {
             throw new BusinessException(StatusCode.REQUIRED_FIELD_EMPTY, "业务类型信息不完整");
+        }
+    }
+
+    /**
+     * 写入补助金额修复任务（本地消息表模式）
+     */
+    private void insertSubsidyFixTask(Long reimbursementId) {
+        try {
+            SubsidyFixTask task = new SubsidyFixTask();
+            task.setReimbursementId(reimbursementId);
+            task.setStatus(0);
+            task.setRetryCount(0);
+            subsidyFixTaskMapper.insert(task);
+        } catch (Exception e) {
+            // 写入任务表失败不影响主流程，仅记录日志
+            log.warn("写入补助修复任务失败: reimbursementId={}", reimbursementId, e);
         }
     }
 }

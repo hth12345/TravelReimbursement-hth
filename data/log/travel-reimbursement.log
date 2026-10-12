@@ -1,0 +1,965 @@
+2026-10-10 13:08:21.170 [background-preinit] [] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-10-10 13:08:21.294 [main] [] INFO  c.s.TravelReimbursementApplication - Starting TravelReimbursementApplication using Java 17.0.18 with PID 23724 (D:\project\TravelReimbursement\back-end\target\classes started by 黄廷华 in D:\project\TravelReimbursement\back-end)
+2026-10-10 13:08:21.295 [main] [] INFO  c.s.TravelReimbursementApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-10 13:08:23.813 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-10 13:08:23.816 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-10 13:08:23.856 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2026-10-10 13:08:24.954 [main] [] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-10-10 13:08:24.969 [main] [] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-10-10 13:08:24.972 [main] [] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-10 13:08:24.972 [main] [] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-10-10 13:08:25.048 [main] [] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-10 13:08:25.049 [main] [] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3612 ms
+2026-10-10 13:08:25.335 [main] [] INFO  org.redisson.Version - Redisson 3.26.0
+2026-10-10 13:08:25.885 [redisson-netty-1-5] [] INFO  o.r.connection.ConnectionsHolder - 1 connections initialized for localhost/127.0.0.1:6379
+2026-10-10 13:08:26.000 [redisson-netty-1-20] [] INFO  o.r.connection.ConnectionsHolder - 24 connections initialized for localhost/127.0.0.1:6379
+2026-10-10 13:08:28.821 [main] [] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2026-10-10 13:08:28.956 [main] [] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-10-10 13:08:28.970 [main] [] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-10-10 13:08:28.974 [main] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:29.003 [main] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Broker not available; cannot force queue declarations during start: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:08:29.014 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:29.033 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:623)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2249)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2222)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2202)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:468)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:452)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1960)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1924)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1479)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1320)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:684)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:61)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1249)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:669)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:638)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:585)
+	... 12 common frames omitted
+2026-10-10 13:08:29.040 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:29.066 [main] [] INFO  c.s.TravelReimbursementApplication - Started TravelReimbursementApplication in 8.649 seconds (process running for 9.638)
+2026-10-10 13:08:29.757 [RMI TCP Connection(3)-192.168.0.186] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:29.763 [RMI TCP Connection(2)-192.168.0.186] [] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-10 13:08:29.764 [RMI TCP Connection(2)-192.168.0.186] [] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-10 13:08:29.765 [RMI TCP Connection(2)-192.168.0.186] [] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2026-10-10 13:08:29.779 [RMI TCP Connection(3)-192.168.0.186] [] WARN  o.s.b.a.amqp.RabbitHealthIndicator - Rabbit health check failed
+org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:61)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:623)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2249)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2222)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2202)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.getVersion(RabbitHealthIndicator.java:49)
+	at org.springframework.boot.actuate.amqp.RabbitHealthIndicator.doHealthCheck(RabbitHealthIndicator.java:44)
+	at org.springframework.boot.actuate.health.AbstractHealthIndicator.health(AbstractHealthIndicator.java:82)
+	at org.springframework.boot.actuate.health.HealthIndicator.getHealth(HealthIndicator.java:37)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:82)
+	at org.springframework.boot.actuate.health.HealthEndpoint.getHealth(HealthEndpoint.java:41)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getLoggedHealth(HealthEndpointSupport.java:172)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:145)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getAggregateContribution(HealthEndpointSupport.java:156)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getContribution(HealthEndpointSupport.java:141)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:110)
+	at org.springframework.boot.actuate.health.HealthEndpointSupport.getHealth(HealthEndpointSupport.java:81)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:76)
+	at org.springframework.boot.actuate.health.HealthEndpoint.health(HealthEndpoint.java:66)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:281)
+	at org.springframework.boot.actuate.endpoint.invoke.reflect.ReflectiveOperationInvoker.invoke(ReflectiveOperationInvoker.java:74)
+	at org.springframework.boot.actuate.endpoint.annotation.AbstractDiscoveredOperation.invoke(AbstractDiscoveredOperation.java:60)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:124)
+	at org.springframework.boot.actuate.endpoint.jmx.EndpointMBean.invoke(EndpointMBean.java:97)
+	at java.management/com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:814)
+	at java.management/com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:802)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doOperation(RMIConnectionImpl.java:1472)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl$PrivilegedOperation.run(RMIConnectionImpl.java:1310)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.doPrivilegedOperation(RMIConnectionImpl.java:1405)
+	at java.management.rmi/javax.management.remote.rmi.RMIConnectionImpl.invoke(RMIConnectionImpl.java:829)
+	at java.base/jdk.internal.reflect.GeneratedMethodAccessor25.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:360)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
+	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:712)
+	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:587)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:828)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:705)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:704)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.net.ConnectException: Connection refused: no further information
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method)
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:684)
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:547)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:602)
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at com.rabbitmq.client.impl.SocketFrameHandlerFactory.create(SocketFrameHandlerFactory.java:61)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1249)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:669)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:638)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:585)
+	... 50 common frames omitted
+2026-10-10 13:08:29.784 [RMI TCP Connection(3)-192.168.0.186] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-10-10 13:08:30.090 [RMI TCP Connection(3)-192.168.0.186] [] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4815b584
+2026-10-10 13:08:30.094 [RMI TCP Connection(3)-192.168.0.186] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-10-10 13:08:34.119 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:08:34.126 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1e6f7c25: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:08:34.131 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:34.151 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:08:34.152 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:39.257 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:08:39.258 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@5807b8fb: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:08:39.259 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:39.260 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:08:39.261 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:44.346 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:08:44.346 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-3] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@2068e926: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:08:44.347 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:44.362 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:08:44.362 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:49.483 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:08:49.483 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-4] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@344b5f2f: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:08:49.484 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:49.499 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:08:49.500 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:54.604 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:08:54.604 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-5] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@7a219cf7: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:08:54.606 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-6] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:54.635 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-6] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:08:54.636 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-6] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:59.727 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-6] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:08:59.727 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-6] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4045d4eb: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:08:59.729 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-7] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:08:59.757 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-7] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:08:59.759 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-7] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:04.873 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-7] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:04.873 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-7] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@5bd1cbbc: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:04.876 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-8] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:04.888 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-8] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:04.888 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-8] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:09.984 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-8] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:09.985 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-8] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@32261f8d: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:09.986 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-9] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:09.988 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-9] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:09.988 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-9] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:15.074 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-9] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:15.074 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-9] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4deb066a: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:15.075 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-10] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:15.089 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-10] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:15.091 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-10] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:20.194 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-10] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:20.194 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-10] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@92fdafc: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:20.196 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-11] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:20.209 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-11] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:20.209 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-11] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:25.284 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-11] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:25.285 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-11] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@5509d046: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:25.286 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-12] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:25.288 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-12] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:25.289 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-12] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:29.120 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:09:29.154 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:09:29.333 [scheduling-1] [] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+### The error may exist in com/shengyi/mapper/SubsidyFixTaskMapper.java (best guess)
+### The error may involve com.shengyi.mapper.SubsidyFixTaskMapper.selectPendingTasks-Inline
+### The error occurred while setting parameters
+### SQL: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+### Cause: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+; bad SQL grammar []
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:246)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:95)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy106.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:164)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:155)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:92)
+	at jdk.proxy2/jdk.proxy2.$Proxy117.selectPendingTasks(Unknown Source)
+	at com.shengyi.job.SubsidyFixJob.doFix(SubsidyFixJob.java:64)
+	at com.shengyi.job.SubsidyFixJob.execute(SubsidyFixJob.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:58)
+	at jdk.proxy3/jdk.proxy3.$Proxy155.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:65)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:80)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at jdk.proxy2/jdk.proxy2.$Proxy154.query(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:65)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:81)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:59)
+	at jdk.proxy2/jdk.proxy2.$Proxy153.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 24 common frames omitted
+2026-10-10 13:09:30.384 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-12] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:30.384 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-12] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@640bdcb4: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:30.388 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-13] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:30.402 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-13] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:30.403 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-13] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:35.492 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-13] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:35.492 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-13] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@78e405de: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:35.494 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-14] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:35.507 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-14] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:35.508 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-14] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:40.604 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-14] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:40.604 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-14] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@2faf6a30: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:40.606 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-15] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:40.638 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-15] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:40.638 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-15] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:45.722 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-15] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:45.722 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-15] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@7d23fb3: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:45.724 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-16] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:45.725 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-16] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:45.725 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-16] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:50.811 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-16] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:50.811 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-16] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@3938dc8: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:50.812 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-17] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:50.827 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-17] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:50.828 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-17] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:55.912 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-17] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:09:55.912 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-17] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@d2f522e: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:09:55.914 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-18] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:09:55.929 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-18] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:09:55.929 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-18] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:01.010 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-18] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:01.010 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-18] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@5155e340: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:01.011 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-19] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:01.025 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-19] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:01.025 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-19] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:06.138 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-19] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:06.138 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-19] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@d322817: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:06.140 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-20] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:06.142 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-20] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:06.142 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-20] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:11.224 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-20] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:11.224 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-20] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1c8202f0: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:11.227 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-21] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:11.230 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-21] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:11.230 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-21] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:16.346 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-21] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:16.346 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-21] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@45481354: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:16.348 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-22] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:16.362 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-22] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:16.362 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-22] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:21.440 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-22] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:21.440 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-22] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@6d07d495: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:21.442 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-23] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:21.444 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-23] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:21.444 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-23] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:26.550 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-23] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:26.550 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-23] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@18ccc8f3: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:26.552 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-24] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:26.554 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-24] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:26.555 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-24] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:31.633 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-24] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:31.633 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-24] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@665bdb5a: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:31.635 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-25] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:31.648 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-25] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:31.648 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-25] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:36.734 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-25] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:36.734 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-25] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@264fafb5: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:36.736 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-26] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:36.766 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-26] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:36.766 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-26] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:41.865 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-26] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:41.865 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-26] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@7e736cce: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:41.867 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-27] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:41.880 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-27] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:41.880 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-27] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:46.981 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-27] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:46.981 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-27] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1d1917d0: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:46.982 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-28] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:46.998 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-28] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:46.998 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-28] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:52.078 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-28] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:52.078 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-28] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4813e963: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:52.080 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-29] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:52.082 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-29] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:52.082 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-29] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:57.169 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-29] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:10:57.169 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-29] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@70264b49: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:10:57.171 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-30] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:10:57.173 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-30] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:10:57.174 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-30] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:02.273 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-30] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:02.273 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-30] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@2540a1be: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:02.280 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-31] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:02.284 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-31] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:02.287 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-31] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:07.368 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-31] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:07.368 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-31] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4e56065e: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:07.370 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-32] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:07.383 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-32] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:07.383 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-32] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:12.487 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-32] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:12.487 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-32] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@61ef6de9: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:12.489 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-33] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:12.504 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-33] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:12.504 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-33] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:17.612 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-33] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:17.612 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-33] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@3da37eba: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:17.614 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-34] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:17.628 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-34] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:17.628 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-34] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:22.735 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-34] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:22.735 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-34] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1e073989: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:22.738 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-35] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:22.751 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-35] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:22.751 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-35] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:27.846 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-35] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:27.846 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-35] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@64f6b1a2: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:27.847 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-36] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:27.851 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-36] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:27.851 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-36] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:32.986 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-36] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:32.986 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-36] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1f38ea: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:32.989 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-37] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:32.993 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-37] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:32.993 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-37] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:38.089 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-37] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:38.090 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-37] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@240a782a: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:38.091 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-38] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:38.094 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-38] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:38.095 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-38] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:43.168 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-38] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:43.168 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-38] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@55322bc5: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:43.169 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-39] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:43.172 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-39] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:43.172 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-39] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:48.258 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-39] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:48.258 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-39] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@cc5f380: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:48.260 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-40] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:48.262 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-40] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:48.263 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-40] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:53.335 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-40] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:53.335 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-40] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1aa10b03: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:53.337 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-41] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:53.367 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-41] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:53.367 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-41] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:58.460 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-41] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:11:58.460 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-41] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@6cd03223: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:11:58.462 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-42] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:11:58.476 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-42] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:11:58.476 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-42] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:03.602 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-42] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:03.603 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-42] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@3f9b53e7: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:03.605 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-43] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:03.618 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-43] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:03.618 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-43] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:08.718 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-43] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:08.718 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-43] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@6c62f7ba: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:08.720 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-44] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:08.749 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-44] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:08.750 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-44] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:13.835 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-44] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:13.835 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-44] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@641d26dc: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:13.838 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-45] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:13.840 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-45] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:13.840 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-45] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:18.946 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-45] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:18.946 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-45] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@3e6bafc9: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:18.948 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-46] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:18.961 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-46] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:18.962 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-46] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:24.056 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-46] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:24.057 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-46] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@724c74c5: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:24.058 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-47] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:24.087 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-47] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:24.087 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-47] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:29.180 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-47] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:29.180 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-47] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@7d757960: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:29.181 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-48] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:29.184 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-48] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:29.185 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-48] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:34.262 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-48] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:34.262 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-48] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@14f57e8a: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:34.264 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-49] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:34.266 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-49] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:34.266 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-49] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:39.351 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-49] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:39.351 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-49] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@690358fe: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:39.353 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-50] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:39.366 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-50] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:39.366 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-50] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:44.431 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-50] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:44.431 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-50] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@5891f2e0: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:44.433 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-51] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:44.435 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-51] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:44.435 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-51] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:49.520 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-51] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:49.520 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-51] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@217b6313: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:49.521 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-52] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:49.536 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-52] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:49.537 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-52] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:54.663 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-52] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:54.663 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-52] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@588fcc56: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:54.665 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-53] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:54.680 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-53] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:54.681 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-53] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:59.762 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-53] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:12:59.763 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-53] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@6ea1c9cf: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:12:59.764 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-54] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:12:59.766 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-54] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:12:59.766 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-54] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:04.906 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-54] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:04.906 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-54] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@726982a9: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:04.909 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-55] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:04.911 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-55] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:04.911 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-55] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:09.980 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-55] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:09.980 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-55] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@15810e2e: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:09.982 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-56] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:10.011 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-56] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:10.011 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-56] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:15.112 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-56] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:15.112 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-56] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@72f88c55: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:15.113 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-57] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:15.116 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-57] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:15.117 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-57] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:20.199 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-57] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:20.199 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-57] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@2ba93811: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:20.201 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-58] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:20.215 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-58] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:20.216 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-58] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:25.298 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-58] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:25.298 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-58] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@134552f5: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:25.300 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-59] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:25.303 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-59] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:25.303 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-59] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:30.409 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-59] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:30.409 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-59] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@59072086: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:30.411 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-60] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:30.426 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-60] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:30.426 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-60] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:35.512 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-60] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:35.512 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-60] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4f8f7eed: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:35.514 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-61] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:35.518 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-61] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:35.518 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-61] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:40.630 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-61] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:40.630 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-61] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@50d71458: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:40.632 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-62] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:40.635 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-62] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:40.635 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-62] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:45.751 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-62] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:45.752 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-62] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@554a3b74: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:45.760 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-63] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:45.789 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-63] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:45.789 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-63] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:50.841 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-63] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:50.841 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-63] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@659ce2f7: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:50.846 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-64] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:50.852 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-64] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:50.852 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-64] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:55.975 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-64] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:13:55.976 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-64] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1d614410: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:13:55.980 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-65] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:13:56.010 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-65] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:13:56.012 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-65] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:01.252 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-65] [] WARN  o.s.a.r.l.SimpleMessageListenerContainer - Consumer raised exception, processing can restart if the connection factory supports it. Exception summary: org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused: no further information
+2026-10-10 13:14:01.253 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-65] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@5ebc62f3: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:14:01.263 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-66] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:01.803 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-66] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:14:01.803 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-66] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:07.043 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-66] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@1363a887: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:14:07.047 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-67] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:07.059 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-67] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:14:07.060 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-67] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:12.202 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-67] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@4ff1dbde: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:14:12.206 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-68] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:12.246 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-68] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:14:12.246 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-68] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:17.378 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-68] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@29e9bff1: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:14:17.382 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-69] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:17.419 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-69] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:14:17.420 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-69] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:22.517 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-69] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@791454f9: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:14:22.520 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-70] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:22.542 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-70] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:14:22.543 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-70] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:27.652 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-70] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Restarting Consumer@20e6d4e7: tags=[[]], channel=null, acknowledgeMode=MANUAL local queue size=0
+2026-10-10 13:14:27.655 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-71] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:27.746 [AMQP Connection 127.0.0.1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:14:27.762 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-71] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+2026-10-10 13:14:27.762 [AMQP Connection 0:0:0:0:0:0:0:1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:14:27.762 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-71] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:14:27.773 [AMQP Connection 127.0.0.1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:14:27.785 [AMQP Connection 0:0:0:0:0:0:0:1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:14:27.785 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-71] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Consumer received fatal exception on startup
+org.springframework.amqp.rabbit.listener.exception.FatalListenerStartupException: Authentication failure
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.start(BlockingQueueConsumer.java:632)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1480)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1320)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: org.springframework.amqp.AmqpAuthenticationException: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:64)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:623)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils$RabbitResourceFactory.createConnection(ConnectionFactoryUtils.java:345)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.doGetTransactionalResourceHolder(ConnectionFactoryUtils.java:140)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactoryUtils.java:102)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactoryUtils.java:85)
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.start(BlockingQueueConsumer.java:626)
+	... 3 common frames omitted
+Caused by: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at com.rabbitmq.client.impl.AMQConnection.start(AMQConnection.java:395)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1251)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:669)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:638)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:585)
+	... 10 common frames omitted
+2026-10-10 13:14:27.791 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-71] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Stopping container from aborted consumer
+2026-10-10 13:14:27.792 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-71] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Waiting for workers to finish.
+2026-10-10 13:14:27.792 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-71] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Successfully waited for workers to finish.
+2026-10-10 13:14:29.080 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:14:29.081 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:14:29.117 [scheduling-1] [] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+### The error may exist in com/shengyi/mapper/SubsidyFixTaskMapper.java (best guess)
+### The error may involve com.shengyi.mapper.SubsidyFixTaskMapper.selectPendingTasks-Inline
+### The error occurred while setting parameters
+### SQL: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+### Cause: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+; bad SQL grammar []
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:246)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:95)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy106.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:164)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:155)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:92)
+	at jdk.proxy2/jdk.proxy2.$Proxy117.selectPendingTasks(Unknown Source)
+	at com.shengyi.job.SubsidyFixJob.doFix(SubsidyFixJob.java:64)
+	at com.shengyi.job.SubsidyFixJob.execute(SubsidyFixJob.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:58)
+	at jdk.proxy3/jdk.proxy3.$Proxy155.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:65)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:80)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at jdk.proxy2/jdk.proxy2.$Proxy154.query(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:65)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:81)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:59)
+	at jdk.proxy2/jdk.proxy2.$Proxy153.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 24 common frames omitted
+2026-10-10 13:19:29.072 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:19:29.073 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:19:29.077 [scheduling-1] [] ERROR o.s.s.s.TaskUtils$LoggingErrorHandler - Unexpected error occurred in scheduled task
+org.springframework.jdbc.BadSqlGrammarException: 
+### Error querying database.  Cause: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+### The error may exist in com/shengyi/mapper/SubsidyFixTaskMapper.java (best guess)
+### The error may involve com.shengyi.mapper.SubsidyFixTaskMapper.selectPendingTasks-Inline
+### The error occurred while setting parameters
+### SQL: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+### Cause: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+; bad SQL grammar []
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:246)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:107)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:95)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:347)
+	at jdk.proxy2/jdk.proxy2.$Proxy106.selectList(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.selectList(SqlSessionTemplate.java:194)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.executeForMany(MybatisMapperMethod.java:164)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:77)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy$PlainMethodInvoker.invoke(MybatisMapperProxy.java:155)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:92)
+	at jdk.proxy2/jdk.proxy2.$Proxy117.selectPendingTasks(Unknown Source)
+	at com.shengyi.job.SubsidyFixJob.doFix(SubsidyFixJob.java:64)
+	at com.shengyi.job.SubsidyFixJob.execute(SubsidyFixJob.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124)
+	at io.micrometer.observation.Observation.observe(Observation.java:499)
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124)
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:305)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: java.sql.SQLSyntaxErrorException: Table 'travelreimbursement.subsidy_fix_task' doesn't exist
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:354)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.execute(ProxyPreparedStatement.java:44)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.execute(HikariProxyPreparedStatement.java)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:58)
+	at jdk.proxy3/jdk.proxy3.$Proxy155.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.query(PreparedStatementHandler.java:65)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.query(RoutingStatementHandler.java:80)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:61)
+	at jdk.proxy2/jdk.proxy2.$Proxy154.query(Unknown Source)
+	at org.apache.ibatis.executor.SimpleExecutor.doQuery(SimpleExecutor.java:65)
+	at org.apache.ibatis.executor.BaseExecutor.queryFromDatabase(BaseExecutor.java:336)
+	at org.apache.ibatis.executor.BaseExecutor.query(BaseExecutor.java:158)
+	at com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor.intercept(MybatisPlusInterceptor.java:81)
+	at org.apache.ibatis.plugin.Plugin.invoke(Plugin.java:59)
+	at jdk.proxy2/jdk.proxy2.$Proxy153.query(Unknown Source)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:154)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:147)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.selectList(DefaultSqlSession.java:142)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:333)
+	... 24 common frames omitted
+2026-10-10 13:21:24.118 [SpringApplicationShutdownHook] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-10-10 13:21:24.124 [SpringApplicationShutdownHook] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-10-10 13:21:29.762 [background-preinit] [] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-10-10 13:21:29.808 [main] [] INFO  c.s.TravelReimbursementApplication - Starting TravelReimbursementApplication using Java 17.0.18 with PID 23844 (D:\project\TravelReimbursement\back-end\target\classes started by 黄廷华 in D:\project\TravelReimbursement\back-end)
+2026-10-10 13:21:29.809 [main] [] INFO  c.s.TravelReimbursementApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-10 13:21:31.052 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-10 13:21:31.055 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-10 13:21:31.090 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2026-10-10 13:21:32.146 [main] [] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-10-10 13:21:32.161 [main] [] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-10-10 13:21:32.163 [main] [] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-10 13:21:32.164 [main] [] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-10-10 13:21:32.237 [main] [] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-10 13:21:32.239 [main] [] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2375 ms
+2026-10-10 13:21:32.546 [main] [] INFO  org.redisson.Version - Redisson 3.26.0
+2026-10-10 13:21:33.080 [redisson-netty-1-5] [] INFO  o.r.connection.ConnectionsHolder - 1 connections initialized for localhost/127.0.0.1:16379
+2026-10-10 13:21:33.218 [redisson-netty-1-20] [] INFO  o.r.connection.ConnectionsHolder - 24 connections initialized for localhost/127.0.0.1:16379
+2026-10-10 13:21:35.922 [main] [] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2026-10-10 13:21:36.056 [main] [] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-10-10 13:21:36.072 [main] [] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-10-10 13:21:36.077 [main] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:21:36.143 [AMQP Connection 127.0.0.1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:21:36.155 [AMQP Connection 0:0:0:0:0:0:0:1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:21:36.156 [main] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Broker not available; cannot force queue declarations during start: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+2026-10-10 13:21:36.167 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:21:36.175 [AMQP Connection 127.0.0.1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:21:36.182 [AMQP Connection 0:0:0:0:0:0:0:1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:21:36.183 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Failed to check/redeclare auto-delete queue(s).
+org.springframework.amqp.AmqpAuthenticationException: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:64)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:623)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.doExecute(RabbitTemplate.java:2249)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2222)
+	at org.springframework.amqp.rabbit.core.RabbitTemplate.execute(RabbitTemplate.java:2202)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueInfo(RabbitAdmin.java:468)
+	at org.springframework.amqp.rabbit.core.RabbitAdmin.getQueueProperties(RabbitAdmin.java:452)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.attemptDeclarations(AbstractMessageListenerContainer.java:1960)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.redeclareElementsIfNecessary(AbstractMessageListenerContainer.java:1924)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1479)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1320)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at com.rabbitmq.client.impl.AMQConnection.start(AMQConnection.java:395)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1251)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:669)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:638)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:585)
+	... 12 common frames omitted
+2026-10-10 13:21:36.189 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:21:36.196 [AMQP Connection 127.0.0.1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:21:36.206 [AMQP Connection 0:0:0:0:0:0:0:1:5672] [] WARN  c.r.c.impl.ForgivingExceptionHandler - An unexpected connection driver error occurred (Exception message: Socket closed)
+2026-10-10 13:21:36.206 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Consumer received fatal exception on startup
+org.springframework.amqp.rabbit.listener.exception.FatalListenerStartupException: Authentication failure
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.start(BlockingQueueConsumer.java:632)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1480)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1320)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: org.springframework.amqp.AmqpAuthenticationException: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:64)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:623)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils$RabbitResourceFactory.createConnection(ConnectionFactoryUtils.java:345)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.doGetTransactionalResourceHolder(ConnectionFactoryUtils.java:140)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactoryUtils.java:102)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactoryUtils.java:85)
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.start(BlockingQueueConsumer.java:626)
+	... 3 common frames omitted
+Caused by: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at com.rabbitmq.client.impl.AMQConnection.start(AMQConnection.java:395)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1251)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:669)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:638)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:585)
+	... 10 common frames omitted
+2026-10-10 13:21:36.210 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Waiting for workers to finish.
+2026-10-10 13:21:36.211 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Successfully waited for workers to finish.
+2026-10-10 13:21:36.211 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-1] [] ERROR o.s.a.r.l.SimpleMessageListenerContainer - Stopping container from aborted consumer
+2026-10-10 13:21:36.212 [main] [] INFO  o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2026-10-10 13:21:37.114 [main] [] WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'org.springframework.amqp.rabbit.config.internalRabbitListenerEndpointRegistry'
+2026-10-10 13:21:37.166 [main] [] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-10 13:21:37.187 [main] [] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.context.ApplicationContextException: Failed to start bean 'org.springframework.amqp.rabbit.config.internalRabbitListenerEndpointRegistry'
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:288)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.start(DefaultLifecycleProcessor.java:472)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.startBeans(DefaultLifecycleProcessor.java:257)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onRefresh(DefaultLifecycleProcessor.java:202)
+	at org.springframework.context.support.AbstractApplicationContext.finishRefresh(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:628)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352)
+	at com.shengyi.TravelReimbursementApplication.main(TravelReimbursementApplication.java:16)
+Caused by: org.springframework.amqp.AmqpIllegalStateException: Fatal exception on listener startup
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.waitForConsumersToStart(SimpleMessageListenerContainer.java:641)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer.doStart(SimpleMessageListenerContainer.java:601)
+	at org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer.start(AbstractMessageListenerContainer.java:1405)
+	at org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry.startIfNecessary(RabbitListenerEndpointRegistry.java:297)
+	at org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistry.start(RabbitListenerEndpointRegistry.java:247)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStart(DefaultLifecycleProcessor.java:285)
+	... 13 common frames omitted
+Caused by: org.springframework.amqp.rabbit.listener.exception.FatalListenerStartupException: Authentication failure
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.start(BlockingQueueConsumer.java:632)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.initialize(SimpleMessageListenerContainer.java:1480)
+	at org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer$AsyncMessageProcessingConsumer.run(SimpleMessageListenerContainer.java:1320)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+Caused by: org.springframework.amqp.AmqpAuthenticationException: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at org.springframework.amqp.rabbit.support.RabbitExceptionTranslator.convertRabbitAccessException(RabbitExceptionTranslator.java:64)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:623)
+	at org.springframework.amqp.rabbit.connection.CachingConnectionFactory.createConnection(CachingConnectionFactory.java:726)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.createConnection(ConnectionFactoryUtils.java:257)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils$RabbitResourceFactory.createConnection(ConnectionFactoryUtils.java:345)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.doGetTransactionalResourceHolder(ConnectionFactoryUtils.java:140)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactoryUtils.java:102)
+	at org.springframework.amqp.rabbit.connection.ConnectionFactoryUtils.getTransactionalResourceHolder(ConnectionFactoryUtils.java:85)
+	at org.springframework.amqp.rabbit.listener.BlockingQueueConsumer.start(BlockingQueueConsumer.java:626)
+	... 3 common frames omitted
+Caused by: com.rabbitmq.client.AuthenticationFailureException: ACCESS_REFUSED - Login was refused using authentication mechanism PLAIN. For details see the broker logfile.
+	at com.rabbitmq.client.impl.AMQConnection.start(AMQConnection.java:395)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1251)
+	at com.rabbitmq.client.ConnectionFactory.newConnection(ConnectionFactory.java:1198)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connectAddresses(AbstractConnectionFactory.java:669)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.connect(AbstractConnectionFactory.java:638)
+	at org.springframework.amqp.rabbit.connection.AbstractConnectionFactory.createBareConnection(AbstractConnectionFactory.java:585)
+	... 10 common frames omitted
+2026-10-10 13:23:46.116 [background-preinit] [] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+2026-10-10 13:23:46.173 [main] [] INFO  c.s.TravelReimbursementApplication - Starting TravelReimbursementApplication using Java 17.0.18 with PID 22984 (D:\project\TravelReimbursement\back-end\target\classes started by 黄廷华 in D:\project\TravelReimbursement\back-end)
+2026-10-10 13:23:46.174 [main] [] INFO  c.s.TravelReimbursementApplication - No active profile set, falling back to 1 default profile: "default"
+2026-10-10 13:23:47.551 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+2026-10-10 13:23:47.555 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-10-10 13:23:47.597 [main] [] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 18 ms. Found 0 Redis repository interfaces.
+2026-10-10 13:23:48.725 [main] [] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-10-10 13:23:48.743 [main] [] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-10-10 13:23:48.745 [main] [] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-10-10 13:23:48.746 [main] [] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2026-10-10 13:23:48.837 [main] [] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-10-10 13:23:48.838 [main] [] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2599 ms
+2026-10-10 13:23:49.179 [main] [] INFO  org.redisson.Version - Redisson 3.26.0
+2026-10-10 13:23:49.801 [redisson-netty-1-5] [] INFO  o.r.connection.ConnectionsHolder - 1 connections initialized for localhost/127.0.0.1:16379
+2026-10-10 13:23:49.926 [redisson-netty-1-20] [] INFO  o.r.connection.ConnectionsHolder - 24 connections initialized for localhost/127.0.0.1:16379
+2026-10-10 13:23:53.059 [main] [] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint(s) beneath base path '/actuator'
+2026-10-10 13:23:53.229 [main] [] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-10-10 13:23:53.242 [main] [] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path ''
+2026-10-10 13:23:53.247 [main] [] INFO  o.s.a.r.c.CachingConnectionFactory - Attempting to connect to: [localhost:5672]
+2026-10-10 13:23:53.333 [main] [] INFO  o.s.a.r.c.CachingConnectionFactory - Created new connection: rabbitConnectionFactory#516155b5:0/SimpleConnection@162a5c4c [delegate=amqp://admin@127.0.0.1:5672/, localPort=52441]
+2026-10-10 13:23:53.545 [main] [] INFO  c.s.TravelReimbursementApplication - Started TravelReimbursementApplication in 8.113 seconds (process running for 9.062)
+2026-10-10 13:23:54.157 [RMI TCP Connection(3)-192.168.0.186] [] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-10 13:23:54.157 [RMI TCP Connection(3)-192.168.0.186] [] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-10-10 13:23:54.158 [RMI TCP Connection(2)-192.168.0.186] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-10-10 13:23:54.161 [RMI TCP Connection(3)-192.168.0.186] [] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-10-10 13:23:54.456 [RMI TCP Connection(2)-192.168.0.186] [] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7035f87e
+2026-10-10 13:23:54.463 [RMI TCP Connection(2)-192.168.0.186] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-10-10 13:24:07.263 [http-nio-8080-exec-1] [4cdb49af36cc466599f8e2c0aa9916b7] DEBUG c.s.mapper.CompanyMapper.selectList - ==>  Preparing: SELECT id,reim_company_id,reim_company_no,reim_company_name FROM company
+2026-10-10 13:24:07.263 [http-nio-8080-exec-2] [2ba4df9833b548c5b319561e5907b0bb] DEBUG c.s.mapper.EmployeeMapper.selectList - ==>  Preparing: SELECT id,reimburser_id,reimburser_no,reimburser_name FROM employee
+2026-10-10 13:24:07.263 [http-nio-8080-exec-3] [848f40a8299d40a888a9920c54eed574] DEBUG c.s.mapper.DepartMapper.selectList - ==>  Preparing: SELECT id,reim_department_id,reim_department_no,reim_department_name FROM depart
+2026-10-10 13:24:07.263 [http-nio-8080-exec-4] [7c15088e96764214b92b10dec28f46e1] DEBUG c.s.m.BusinessTypeMapper.selectList - ==>  Preparing: SELECT id,business_type_id,business_type_no,business_type_name,there_subordinate_node,superior_id,create_time,update_time,is_deleted FROM business_type
+2026-10-10 13:24:07.319 [http-nio-8080-exec-3] [848f40a8299d40a888a9920c54eed574] DEBUG c.s.mapper.DepartMapper.selectList - ==> Parameters: 
+2026-10-10 13:24:07.319 [http-nio-8080-exec-4] [7c15088e96764214b92b10dec28f46e1] DEBUG c.s.m.BusinessTypeMapper.selectList - ==> Parameters: 
+2026-10-10 13:24:07.319 [http-nio-8080-exec-1] [4cdb49af36cc466599f8e2c0aa9916b7] DEBUG c.s.mapper.CompanyMapper.selectList - ==> Parameters: 
+2026-10-10 13:24:07.319 [http-nio-8080-exec-2] [2ba4df9833b548c5b319561e5907b0bb] DEBUG c.s.mapper.EmployeeMapper.selectList - ==> Parameters: 
+2026-10-10 13:24:07.368 [http-nio-8080-exec-2] [2ba4df9833b548c5b319561e5907b0bb] DEBUG c.s.mapper.EmployeeMapper.selectList - <==      Total: 3
+2026-10-10 13:24:07.368 [http-nio-8080-exec-1] [4cdb49af36cc466599f8e2c0aa9916b7] DEBUG c.s.mapper.CompanyMapper.selectList - <==      Total: 2
+2026-10-10 13:24:07.369 [http-nio-8080-exec-3] [848f40a8299d40a888a9920c54eed574] DEBUG c.s.mapper.DepartMapper.selectList - <==      Total: 3
+2026-10-10 13:24:07.373 [http-nio-8080-exec-4] [7c15088e96764214b92b10dec28f46e1] DEBUG c.s.m.BusinessTypeMapper.selectList - <==      Total: 3
+2026-10-10 13:24:07.696 [http-nio-8080-exec-6] [56abf985984844ecb90d7251263da63e] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM reimbursement r WHERE r.deleted = 0
+2026-10-10 13:24:07.697 [http-nio-8080-exec-6] [56abf985984844ecb90d7251263da63e] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==> Parameters: 
+2026-10-10 13:24:07.707 [http-nio-8080-exec-6] [56abf985984844ecb90d7251263da63e] DEBUG c.s.m.R.selectReimbursementList_mpCount - <==      Total: 1
+2026-10-10 13:24:53.574 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:24:53.575 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:24:53.578 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 13:27:05.784 [http-nio-8080-exec-4] [aed470417cb54258a262e73ca00abae7] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM reimbursement r WHERE r.deleted = 0 AND r.company_id = ?
+2026-10-10 13:27:05.786 [http-nio-8080-exec-4] [aed470417cb54258a262e73ca00abae7] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==> Parameters: C001(String)
+2026-10-10 13:27:05.789 [http-nio-8080-exec-4] [aed470417cb54258a262e73ca00abae7] DEBUG c.s.m.R.selectReimbursementList_mpCount - <==      Total: 1
+2026-10-10 13:27:05.794 [http-nio-8080-exec-4] [aed470417cb54258a262e73ca00abae7] DEBUG c.s.m.R.selectReimbursementList - ==>  Preparing: SELECT r.id, r.reimbursement_no, r.status, r.title, r.reason, r.reimburser_id, r.reimburser_name, r.reimburser_no, r.department_id, r.department_name, r.department_no, r.company_id, r.company_name, r.company_no, r.business_type_id, r.business_type_name, r.subsidy_amount, r.create_time FROM reimbursement r WHERE r.deleted = 0 AND r.company_id = ? ORDER BY r.create_time DESC LIMIT ?
+2026-10-10 13:27:05.795 [http-nio-8080-exec-4] [aed470417cb54258a262e73ca00abae7] DEBUG c.s.m.R.selectReimbursementList - ==> Parameters: C001(String), 100(Long)
+2026-10-10 13:27:05.803 [http-nio-8080-exec-4] [aed470417cb54258a262e73ca00abae7] DEBUG c.s.m.R.selectReimbursementList - <==      Total: 3
+2026-10-10 13:27:11.144 [http-nio-8080-exec-2] [d139391fbba84332b95d2fe89d49519c] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM reimbursement r WHERE r.deleted = 0 AND r.company_id = ? AND r.business_type_id = ?
+2026-10-10 13:27:11.145 [http-nio-8080-exec-2] [d139391fbba84332b95d2fe89d49519c] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==> Parameters: C001(String), BT001(String)
+2026-10-10 13:27:11.148 [http-nio-8080-exec-2] [d139391fbba84332b95d2fe89d49519c] DEBUG c.s.m.R.selectReimbursementList_mpCount - <==      Total: 1
+2026-10-10 13:27:13.857 [http-nio-8080-exec-5] [debdd9c140824044b82cc128921ca868] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM reimbursement r WHERE r.deleted = 0 AND r.company_id = ? AND r.business_type_id = ?
+2026-10-10 13:27:13.857 [http-nio-8080-exec-5] [debdd9c140824044b82cc128921ca868] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==> Parameters: C002(String), BT001(String)
+2026-10-10 13:27:13.859 [http-nio-8080-exec-5] [debdd9c140824044b82cc128921ca868] DEBUG c.s.m.R.selectReimbursementList_mpCount - <==      Total: 1
+2026-10-10 13:27:16.910 [http-nio-8080-exec-6] [6db4b39afd71445f8e9ff337a7126594] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==>  Preparing: SELECT COUNT(*) AS total FROM reimbursement r WHERE r.deleted = 0 AND r.company_id = ?
+2026-10-10 13:27:16.911 [http-nio-8080-exec-6] [6db4b39afd71445f8e9ff337a7126594] DEBUG c.s.m.R.selectReimbursementList_mpCount - ==> Parameters: C002(String)
+2026-10-10 13:27:16.914 [http-nio-8080-exec-6] [6db4b39afd71445f8e9ff337a7126594] DEBUG c.s.m.R.selectReimbursementList_mpCount - <==      Total: 1
+2026-10-10 13:27:16.915 [http-nio-8080-exec-6] [6db4b39afd71445f8e9ff337a7126594] DEBUG c.s.m.R.selectReimbursementList - ==>  Preparing: SELECT r.id, r.reimbursement_no, r.status, r.title, r.reason, r.reimburser_id, r.reimburser_name, r.reimburser_no, r.department_id, r.department_name, r.department_no, r.company_id, r.company_name, r.company_no, r.business_type_id, r.business_type_name, r.subsidy_amount, r.create_time FROM reimbursement r WHERE r.deleted = 0 AND r.company_id = ? ORDER BY r.create_time DESC LIMIT ?
+2026-10-10 13:27:16.915 [http-nio-8080-exec-6] [6db4b39afd71445f8e9ff337a7126594] DEBUG c.s.m.R.selectReimbursementList - ==> Parameters: C002(String), 100(Long)
+2026-10-10 13:27:16.920 [http-nio-8080-exec-6] [6db4b39afd71445f8e9ff337a7126594] DEBUG c.s.m.R.selectReimbursementList - <==      Total: 2
+2026-10-10 13:29:53.550 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:29:53.550 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:29:53.553 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 13:34:53.546 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:34:53.547 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:34:53.549 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 13:39:53.556 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:39:53.557 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:39:53.559 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 13:44:53.558 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:44:53.578 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:44:53.586 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 13:49:53.547 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:49:53.557 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:49:53.561 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 13:54:53.558 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:54:53.563 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:54:53.572 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 13:59:53.553 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 13:59:53.554 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 13:59:53.562 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 14:04:53.552 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 14:04:53.553 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 14:04:53.555 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 14:09:53.555 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 14:09:53.556 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 14:09:53.558 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 14:14:53.552 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 14:14:53.553 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 14:14:53.554 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 14:19:53.547 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==>  Preparing: SELECT * FROM subsidy_fix_task WHERE status = 0 ORDER BY create_time ASC LIMIT ?
+2026-10-10 14:19:53.548 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - ==> Parameters: 50(Integer)
+2026-10-10 14:19:53.551 [scheduling-1] [] DEBUG c.s.m.S.selectPendingTasks - <==      Total: 0
+2026-10-10 14:23:35.657 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Waiting for workers to finish.
+2026-10-10 14:23:36.448 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] [] INFO  o.s.a.r.l.SimpleMessageListenerContainer - Successfully waited for workers to finish.
+2026-10-10 14:23:37.619 [SpringApplicationShutdownHook] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-10-10 14:23:37.631 [SpringApplicationShutdownHook] [] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

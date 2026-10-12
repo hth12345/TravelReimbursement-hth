@@ -156,16 +156,16 @@ public class SubsidyServiceImpl implements SubsidyService {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可编辑补助");
         }
 
-        List<SubsidyCalendar> existingList = subsidyCalendarService.list(
+        List<SubsidyCalendar> subsidyCalendarList = subsidyCalendarService.list(
                 new LambdaQueryWrapper<SubsidyCalendar>()
                         .eq(SubsidyCalendar::getTripId, tid));
         java.util.Map<LocalDate, SubsidyCalendar> map = new java.util.HashMap<>();
-        for (SubsidyCalendar sc : existingList) {
+        for (SubsidyCalendar sc : subsidyCalendarList) {
             map.put(sc.getCalendarDate(), sc);
         }
 
         // 保存修改前的快照，用于异动日志
-        List<SubsidyCalendar> preSnapshot = existingList.stream().map(sc -> {
+        List<SubsidyCalendar> preSnapshot = subsidyCalendarList.stream().map(sc -> {
             SubsidyCalendar copy = new SubsidyCalendar();
             BeanUtils.copyProperties(sc, copy);
             return copy;
@@ -216,11 +216,11 @@ public class SubsidyServiceImpl implements SubsidyService {
             throw new BusinessException(StatusCode.AMOUNT_MISMATCH, "数据异常，请刷新后重新编辑");
         }
 
-        subsidyCalendarService.updateBatchById(existingList);
+        subsidyCalendarService.updateBatchById(subsidyCalendarList);
 
         // 记录异动日志
         auditLogService.record(OperationType.SUBSIDY_SAVE,
-                String.valueOf(trip.getReimbursementId()), preSnapshot, existingList);
+                String.valueOf(trip.getReimbursementId()), preSnapshot, subsidyCalendarList);
 
         reimbursement.setSubsidyAmount(totalSubsidy);
         reimbursementMapper.updateById(reimbursement);

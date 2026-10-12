@@ -1,0 +1,75 @@
+# 差旅报销系统 - 开发环境一键编排
+# 命令：docker compose -f docker-compose-environment.yml up -d
+version: '3.9'
+services:
+  mysql:
+    image: mysql:8.0.32
+    container_name: travel-reimbursement-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:123456}
+      MYSQL_DATABASE: travelreimbursement
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/sql:/docker-entrypoint-initdb.d
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+      start_period: 15s
+    networks:
+      - travel-net
+
+  redis:
+    image: redis:6.2
+    container_name: travel-reimbursement-redis
+    restart: always
+    hostname: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - redis-data:/data
+    command: redis-server /usr/local/etc/redis/redis.conf
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - travel-net
+
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    container_name: travel-reimbursement-rabbitmq
+    restart: always
+    hostname: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin123
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - travel-net
+
+volumes:
+  mysql-data:
+  redis-data:
+  rabbitmq-data:
+
+networks:
+  travel-net:
+    driver: bridge

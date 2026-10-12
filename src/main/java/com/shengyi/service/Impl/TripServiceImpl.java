@@ -23,7 +23,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Service
@@ -54,17 +53,17 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
             throw new BusinessException(StatusCode.DATE_OVERLAP, "到达日期不能晚于当前日期");
         }
 
-        Reimbursement reimbursement = reimbursementMapper.selectById(dto.getReimbursementId());
-        if (reimbursement == null) {
+        Reimbursement reimbursementRes = reimbursementMapper.selectById(dto.getReimbursementId());
+        if (reimbursementRes == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "报销单不存在");
         }
-        if (reimbursement.getStatus() != 0) {
+        if (reimbursementRes.getStatus() != 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可编辑行程");
         }
 
-        boolean isUpdate = StringUtils.hasText(dto.getTripId());
+        boolean hasTripId = StringUtils.hasText(dto.getTripId());
         Trip oldTrip = null;
-        if (isUpdate) {
+        if (hasTripId) {
             Long tripId = Long.parseLong(dto.getTripId());
             oldTrip = this.getById(tripId);
             int overlapCount = tripMapper.countDateOverlapExcludeSelf(
@@ -82,8 +81,8 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
             }
         }
 
-        Trip trip = buildTrip(dto, isUpdate);
-        if (isUpdate) {
+        Trip trip = buildTrip(dto, hasTripId);
+        if (hasTripId) {
             subsidyCalendarService.deleteByTripId(Long.parseLong(dto.getTripId()));
             this.updateById(trip);
             auditLogService.record(OperationType.TRIP_UPDATE, String.valueOf(trip.getId()), oldTrip, trip);
@@ -109,23 +108,23 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
     @Transactional
     public void deleteTrip(String tripId) {
         Long id = Long.parseLong(tripId);
-        Trip trip = this.getById(id);
-        if (trip == null) {
+        Trip tripRes = this.getById(id);
+        if (tripRes == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "行程不存在");
         }
 
-        Reimbursement reimbursement = reimbursementMapper.selectById(trip.getReimbursementId());
-        if (reimbursement == null || reimbursement.getStatus() != 0) {
+        Reimbursement reimbursementRes = reimbursementMapper.selectById(tripRes.getReimbursementId());
+        if (reimbursementRes == null || reimbursementRes.getStatus() != 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可删除行程");
         }
 
         subsidyCalendarService.deleteByTripId(id);
         this.removeById(id);
 
-        auditLogService.record(OperationType.TRIP_DELETE, String.valueOf(id), trip, null);
+        auditLogService.record(OperationType.TRIP_DELETE, String.valueOf(id), tripRes, null);
 
         // 清除补助汇总缓存 + 列表缓存
-        redisCacheService.evictSubsidySummary(String.valueOf(trip.getReimbursementId()));
+        redisCacheService.evictSubsidySummary(String.valueOf(tripRes.getReimbursementId()));
         redisCacheService.evictReimbListCache();
     }
 
@@ -135,38 +134,38 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
         Long srcId = Long.parseLong(dto.getSourceTripId());
         Long targetId = Long.parseLong(dto.getTargetReimbursementId());
 
-        Trip source = this.getById(srcId);
-        if (source == null) {
+        Trip TripRes = this.getById(srcId);
+        if (TripRes == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "源行程不存在");
         }
 
-        Reimbursement target = reimbursementMapper.selectById(targetId);
-        if (target == null) {
+        Reimbursement targetReimbursement = reimbursementMapper.selectById(targetId);
+        if (targetReimbursement == null) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "目标报销单不存在");
         }
-        if (target.getStatus() != 0) {
+        if (targetReimbursement.getStatus() != 0) {
             throw new BusinessException(StatusCode.SYSTEM_ERROR, "仅草稿状态可新增行程");
         }
 
         int overlapCount = tripMapper.countDateOverlap(
-                targetId, source.getTravelerId(),
-                source.getStartDate(), source.getEndDate());
+                targetId, TripRes.getTravelerId(),
+                TripRes.getStartDate(), TripRes.getEndDate());
         if (overlapCount > 0) {
             throw new BusinessException(StatusCode.DATE_OVERLAP, "该出行人在目标报销单此时段已有其他行程");
         }
 
         Trip newTrip = new Trip();
         newTrip.setReimbursementId(targetId);
-        newTrip.setTravelerId(source.getTravelerId());
-        newTrip.setTravelerName(source.getTravelerName());
-        newTrip.setDepartureCity(source.getDepartureCity());
-        newTrip.setArrivalCity(source.getArrivalCity());
-        newTrip.setStartDate(source.getStartDate());
-        newTrip.setEndDate(source.getEndDate());
-        newTrip.setDescription(source.getDescription());
+        newTrip.setTravelerId(TripRes.getTravelerId());
+        newTrip.setTravelerName(TripRes.getTravelerName());
+        newTrip.setDepartureCity(TripRes.getDepartureCity());
+        newTrip.setArrivalCity(TripRes.getArrivalCity());
+        newTrip.setStartDate(TripRes.getStartDate());
+        newTrip.setEndDate(TripRes.getEndDate());
+        newTrip.setDescription(TripRes.getDescription());
         this.save(newTrip);
 
-        auditLogService.record(OperationType.TRIP_COPY, String.valueOf(newTrip.getId()), source, newTrip);
+        auditLogService.record(OperationType.TRIP_COPY, String.valueOf(newTrip.getId()), TripRes, newTrip);
 
         subsidyCalendarService.generateCalendar(
                 newTrip.getReimbursementId(), newTrip.getId(),
@@ -213,20 +212,20 @@ public class TripServiceImpl extends ServiceImpl<TripMapper, Trip> implements Tr
         }
     }
 
-    private Trip buildTrip(TripSaveDTO dto, boolean isUpdate) {
-        Trip trip = new Trip();
-        if (isUpdate) {
-            trip.setId(Long.parseLong(dto.getTripId()));
+    private Trip buildTrip(TripSaveDTO dto, boolean hasTripId) {
+        Trip tripReq = new Trip();
+        if (hasTripId) {
+            tripReq.setId(Long.parseLong(dto.getTripId()));
         }
-        trip.setReimbursementId(dto.getReimbursementId());
-        trip.setTravelerId(dto.getTravelerId());
-        trip.setTravelerName(lookupTravelerName(dto.getTravelerId()));
-        trip.setDepartureCity(dto.getDepartureCity());
-        trip.setArrivalCity(dto.getArrivalCity());
-        trip.setStartDate(dto.getStartDate());
-        trip.setEndDate(dto.getEndDate());
-        trip.setDescription(dto.getDescription());
-        return trip;
+        tripReq.setReimbursementId(dto.getReimbursementId());
+        tripReq.setTravelerId(dto.getTravelerId());
+        tripReq.setTravelerName(lookupTravelerName(dto.getTravelerId()));
+        tripReq.setDepartureCity(dto.getDepartureCity());
+        tripReq.setArrivalCity(dto.getArrivalCity());
+        tripReq.setStartDate(dto.getStartDate());
+        tripReq.setEndDate(dto.getEndDate());
+        tripReq.setDescription(dto.getDescription());
+        return tripReq;
     }
 
     private String lookupTravelerName(String travelerId) {
